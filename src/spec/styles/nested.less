@@ -1,0 +1,131 @@
+// imports
+@import "foo";      // foo.less is imported
+@import "foo.less"; // foo.less is imported
+@import "foo.php";  // foo.php imported as a Less file
+@import "foo.css";  // statement left in place, as-is
+
+// plugins
+@plugin "my-plugin";
+
+.single {
+    color: red;
+}
+
+.button {
+    &-ok {
+        background-image: url("ok.png");
+    }
+    &-cancel {
+        background-image: url("cancel.png");
+    }
+
+    &-custom {
+        background-image: url("custom.png");
+    }
+}
+
+.link {
+    & + & {
+        color: red;
+    }
+
+    & & {
+        color: green;
+    }
+
+    && {
+        color: blue;
+    }
+
+    &, &ish {
+        color: cyan;
+    }
+}
+
+.math {
+    a: 1 + 1;
+    b: 2px / 2;
+    c: 2px ./ 2;
+    d: (2px / 2);
+}
+
+.class {
+    property: 1px * 2px;
+}
+
+/* NOT SUPPORTED FOR GO TO DEFINITION */
+
+// Variables
+@my-selector: banner;
+
+// Usage
+.@{my-selector} {
+    font-weight: bold;
+    line-height: 40px;
+    margin: 0 auto;
+}
+
+@primary:  green;
+@secondary: blue;
+
+.section {
+    @color: primary;
+
+    .element {
+        color: @@color;
+    }
+}
+
+// extend
+
+nav ul {
+    &:extend(.inline);
+    background: blue;
+}
+
+// mixins
+
+.mixin() {
+    box-shadow+: inset 0 0 10px #555;
+}
+.myclass {
+    .mixin();
+    box-shadow+: 0 0 20px black;
+}
+
+// parent selectos without &
+#outer() {
+    .inner {
+        color: red;
+    }
+}
+
+// CSS Guards
+.my-optional-style() when (@my-option = true) {
+    .inside-the-css-guard {
+        color: white;
+    }
+}
+.my-optional-style();
+
+@media (min-width: 320px) {
+    .inMedia {
+        color: hotpink;
+
+        &__mod {
+            color: yellow;
+        }
+    }
+}
+
+.container {
+    @media (min-width: 320px) {
+        .withinMedia {
+            color: hotpink;
+
+            &__mod {
+                color: yellow;
+            }
+        }
+    }
+}

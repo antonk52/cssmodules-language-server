@@ -1,0 +1,27 @@
+.foo
+& .bar
+  width: 10px
+
+  ^[0]:hover ^[1..-1]
+    width: 20px
+
+.a
+  .b
+    &__c
+      content: selectors()
+
+/* Disambiguation */
+
+pad(n)
+  margin (- n)
+
+body
+  pad(5px)
+
+/* Variables */
+
+font-size = 14px
+font = font-size "Lucida Grande", Arial
+
+body
+  font font, sans-serif

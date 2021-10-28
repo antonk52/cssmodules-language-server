@@ -1,0 +1,33 @@
+.single {
+    color: red;
+}
+
+.one.two {
+    color: green;
+}
+
+.block--element__mod {
+    color: green;
+}
+
+.m-9 {
+    color: blue;
+}
+
+.💩 {
+    color: brown;
+}
+
+.🔥🚒 {
+    color: yellow;
+}
+
+.🤢-_-😷 {
+    color: lime;
+}
+
+@media (min-width: 320px) {
+    .inMedia {
+        color: hotpink;
+    }
+}

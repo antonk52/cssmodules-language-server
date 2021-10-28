@@ -1,0 +1,108 @@
+// mixins
+@mixin button-base() {
+    @include typography(button);
+    @include ripple-surface;
+    @include ripple-radius-bounded;
+
+    display: inline-flex;
+    position: relative;
+    height: $button-height;
+    border: none;
+    vertical-align: middle;
+
+    &:hover { cursor: pointer; }
+
+    &:disabled {
+        color: $mdc-button-disabled-ink-color;
+        cursor: default;
+        pointer-events: none;
+    }
+}
+
+@mixin corner-icon($name, $top-or-bottom, $left-or-right) {
+    .icon-#{$name} {
+        background-image: url("/icons/#{$name}.svg");
+        position: absolute;
+        #{$top-or-bottom}: 0;
+        #{$left-or-right}: 0;
+    }
+}
+
+@include corner-icon("mail", top, left);
+
+
+@mixin inline-animation($duration) {
+    $name: inline-#{unique-id()};
+
+    @keyframes #{$name} {
+        @content;
+    }
+
+    animation-name: $name;
+    animation-duration: $duration;
+    animation-iteration-count: infinite;
+}
+
+.pulse {
+    @include inline-animation(2s) {
+        from { background-color: yellow }
+        to { background-color: red }
+    }
+}
+
+// variables
+
+$base-color: #c6538c;
+$border-dark: rgba($base-color, 0.88);
+
+.alert {
+    border: 1px solid $border-dark;
+}
+
+@use 'library' with (
+    $black: #222,
+    $border-radius: 0.1rem
+);
+
+// parent selectors
+
+.accordion {
+    max-width: 600px;
+    margin: 4rem auto;
+    width: 90%;
+    font-family: "Raleway", sans-serif;
+    background: #f4f4f4;
+
+    &__copy {
+        display: none;
+        padding: 1rem 1.5rem 2rem 1.5rem;
+        color: gray;
+        line-height: 1.6;
+        font-size: 14px;
+        font-weight: 500;
+
+        &--open {
+            display: block;
+        }
+    }
+
+    @media (min-width: 320px) {
+        &__sm {
+            width: 100%;
+
+            &--shrink {
+                width: 80%;
+            }
+        }
+    }
+}
+
+@media (min-width: 320px) {
+    .inMedia {
+        color: hotpink;
+
+        &__mod {
+            color: yellow;
+        }
+    }
+}

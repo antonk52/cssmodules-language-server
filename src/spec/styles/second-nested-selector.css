@@ -1,0 +1,20 @@
+.parent {
+    & .child {
+        color: red;
+    }
+
+    &--mod,
+    &--alt {
+        color: yellow;
+    }
+
+    &--mod:hover {
+        color: green;
+    }
+
+    &--mod {
+        &--addon {
+            color: lightgreen;
+        }
+    }
+}

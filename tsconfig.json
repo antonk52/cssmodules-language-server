@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "outDir": "lib",
+        "rootDir": "src",
+        "composite": true,
+        "declaration": true,
+        "target": "es6",
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "lib": ["es2017"],
+        "skipLibCheck": true,
+        "strict": true
+    },
+    "include": ["src"]
+}

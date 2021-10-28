@@ -1,0 +1,56 @@
+{
+  "name": "cssmodules-language-server",
+  "version": "0.0.0",
+  "description": "language server for cssmodules",
+  "bin": {
+    "cssmodules-language-server": "./lib/cli.js"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "lint": "eslint . --ext=.js,.ts",
+    "test": "jest",
+    "preversion": "npm-run-all clean build lint test",
+    "postversion": "npm publish && git push --follow-tags"
+  },
+  "keywords": [
+    "language-server",
+    "css-modules"
+  ],
+  "author": "antonk52",
+  "license": "MIT",
+  "main": "lib/connection.js",
+  "files": [
+    "lib/*.js",
+    "lib/*.d.ts"
+  ],
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "@types/lodash.camelcase": "^4.3.6",
+    "@types/node": "^16.11.4",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
+    "eslint": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.3.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.4.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.7",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "lodash.camelcase": "^4.3.0",
+    "postcss": "^8.1.10",
+    "postcss-less": "^4.0.0",
+    "postcss-sass": "^0.4.4",
+    "postcss-scss": "^3.0.4",
+    "vscode-languageserver": "^7.0.0",
+    "vscode-languageserver-protocol": "^3.16.0",
+    "vscode-languageserver-textdocument": "^1.0.2",
+    "vscode-uri": "^3.0.2"
+  }
+}
