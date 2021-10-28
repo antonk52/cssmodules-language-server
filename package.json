@@ -1,6 +1,6 @@
 {
   "name": "cssmodules-language-server",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "language server for cssmodules",
   "bin": {
     "cssmodules-language-server": "./lib/cli.js"
