@@ -37,7 +37,9 @@ export function createConnection(): lsp.Connection {
         const result: lsp.InitializeResult = {
             capabilities: {
                 textDocumentSync: lsp.TextDocumentSyncKind.Incremental,
+                hoverProvider: true,
                 definitionProvider: true,
+                implementationProvider: true,
                 completionProvider: {
                     /**
                      * only invoke completion once `.` is pressed
@@ -59,7 +61,11 @@ export function createConnection(): lsp.Connection {
     });
 
     connection.onCompletion(completionProvider.completion);
+
     connection.onDefinition(definitionProvider.definition);
+    connection.onImplementation(definitionProvider.definition);
+
+    connection.onHover(definitionProvider.hover);
 
     return connection;
 }

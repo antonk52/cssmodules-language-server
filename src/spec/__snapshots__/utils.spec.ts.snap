@@ -1,0 +1,712 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`filePathToClassnameDict CSS gets a dictionory of classnames and their location 1`] = `
+Object {
+  ".block--element__mod": Object {
+    "declarations": Array [
+      "color: green;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 9,
+    },
+  },
+  ".inMedia": Object {
+    "declarations": Array [
+      "color: hotpink;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 30,
+    },
+  },
+  ".m-9": Object {
+    "declarations": Array [
+      "color: blue;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 13,
+    },
+  },
+  ".one": Object {
+    "declarations": Array [
+      "color: green;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 5,
+    },
+  },
+  ".single": Object {
+    "declarations": Array [
+      "color: red;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+  ".two": Object {
+    "declarations": Array [
+      "color: green;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 5,
+    },
+  },
+  ".💩": Object {
+    "declarations": Array [
+      "color: brown;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 17,
+    },
+  },
+  ".🔥🚒": Object {
+    "declarations": Array [
+      "color: yellow;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 21,
+    },
+  },
+  ".🤢-_-😷": Object {
+    "declarations": Array [
+      "color: lime;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 25,
+    },
+  },
+}
+`;
+
+exports[`filePathToClassnameDict CSS gets a dictionory of nested classnames 1`] = `
+Object {
+  ".child": Object {
+    "declarations": Array [
+      "color: red;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 6,
+    },
+  },
+  ".inMedia": Object {
+    "declarations": Array [
+      "color: hotpink;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 32,
+    },
+  },
+  ".inMedia__mod": Object {
+    "declarations": Array [
+      "color: yellow;",
+    ],
+    "position": Object {
+      "column": 9,
+      "line": 35,
+    },
+  },
+  ".parent": Object {
+    "declarations": Array [],
+    "position": Object {
+      "column": 1,
+      "line": 5,
+    },
+  },
+  ".parent--aa": Object {
+    "declarations": Array [
+      "color: rebeccapurple;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 25,
+    },
+  },
+  ".parent--bb": Object {
+    "declarations": Array [
+      "color: rebeccapurple;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 25,
+    },
+  },
+  ".parent--mod": Object {
+    "declarations": Array [
+      "color: green;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 10,
+    },
+  },
+  ".parent--mod--addon": Object {
+    "declarations": Array [
+      "color: lightgreen;",
+    ],
+    "position": Object {
+      "column": 9,
+      "line": 13,
+    },
+  },
+  ".single": Object {
+    "declarations": Array [
+      "color: red;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 1,
+    },
+  },
+}
+`;
+
+exports[`filePathToClassnameDict LESS gets a dictionory of nested classnames from less files 1`] = `
+Object {
+  ".button": Object {
+    "declarations": Array [],
+    "position": Object {
+      "column": 1,
+      "line": 14,
+    },
+  },
+  ".button-cancel": Object {
+    "declarations": Array [
+      "background-image: url(\\"cancel.png\\");",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 18,
+    },
+  },
+  ".button-custom": Object {
+    "declarations": Array [
+      "background-image: url(\\"custom.png\\");",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 22,
+    },
+  },
+  ".button-ok": Object {
+    "declarations": Array [
+      "background-image: url(\\"ok.png\\");",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 15,
+    },
+  },
+  ".class": Object {
+    "declarations": Array [
+      "property: 1px * 2px;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 52,
+    },
+  },
+  ".container": Object {
+    "declarations": Array [],
+    "position": Object {
+      "column": 1,
+      "line": 121,
+    },
+  },
+  ".element": Object {
+    "declarations": Array [
+      "color: @@color;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 74,
+    },
+  },
+  ".inMedia": Object {
+    "declarations": Array [
+      "color: hotpink;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 112,
+    },
+  },
+  ".inMedia__mod": Object {
+    "declarations": Array [
+      "color: yellow;",
+    ],
+    "position": Object {
+      "column": 9,
+      "line": 115,
+    },
+  },
+  ".inner": Object {
+    "declarations": Array [
+      "color: red;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 98,
+    },
+  },
+  ".inside-the-css-guard": Object {
+    "declarations": Array [
+      "color: white;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 105,
+    },
+  },
+  ".link": Object {
+    "declarations": Array [],
+    "position": Object {
+      "column": 1,
+      "line": 27,
+    },
+  },
+  ".linkish": Object {
+    "declarations": Array [
+      "color: cyan;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 40,
+    },
+  },
+  ".math": Object {
+    "declarations": Array [
+      "a: 1 + 1;",
+      "b: 2px / 2;",
+      "c: 2px ./ 2;",
+      "d: (2px / 2);",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 45,
+    },
+  },
+  ".mixin": Object {
+    "declarations": Array [
+      "box-shadow+: inset 0 0 10px #555;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 88,
+    },
+  },
+  ".my-optional-style": Object {
+    "declarations": Array [],
+    "position": Object {
+      "column": 1,
+      "line": 104,
+    },
+  },
+  ".myclass": Object {
+    "declarations": Array [
+      "box-shadow+: 0 0 20px black;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 91,
+    },
+  },
+  ".section": Object {
+    "declarations": Array [],
+    "position": Object {
+      "column": 1,
+      "line": 71,
+    },
+  },
+  ".single": Object {
+    "declarations": Array [
+      "color: red;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 10,
+    },
+  },
+  ".withinMedia": Object {
+    "declarations": Array [
+      "color: hotpink;",
+    ],
+    "position": Object {
+      "column": 9,
+      "line": 123,
+    },
+  },
+  ".withinMedia__mod": Object {
+    "declarations": Array [
+      "color: yellow;",
+    ],
+    "position": Object {
+      "column": 13,
+      "line": 126,
+    },
+  },
+}
+`;
+
+exports[`filePathToClassnameDict SASS gets a dictionory of nested classnames 1`] = `
+Object {
+  ".accordion": Object {
+    "declarations": Array [
+      "max-width: 600px;",
+      "margin: 4rem auto;",
+      "width: 90%;",
+      "font-family: \\"Raleway\\", sans-serif;",
+      "background: #f4f4f4;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 55,
+    },
+  },
+  ".accordion__copy": Object {
+    "declarations": Array [
+      "display: none;",
+      "padding: 1rem 1.5rem 2rem 1.5rem;",
+      "color: gray;",
+      "line-height: 1.6;",
+      "font-size: 14px;",
+      "font-weight: 500;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 62,
+    },
+  },
+  ".accordion__copy--open": Object {
+    "declarations": Array [
+      "display: block;",
+    ],
+    "position": Object {
+      "column": 9,
+      "line": 70,
+    },
+  },
+  ".alert": Object {
+    "declarations": Array [
+      "border: 1px solid border-dark;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 48,
+    },
+  },
+  ".inMedia": Object {
+    "declarations": Array [
+      "color: hotpink;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 74,
+    },
+  },
+  ".inMedia__mod": Object {
+    "declarations": Array [
+      "color: yellow;",
+    ],
+    "position": Object {
+      "column": 9,
+      "line": 77,
+    },
+  },
+  ".pulse": Object {
+    "declarations": Array [],
+    "position": Object {
+      "column": 1,
+      "line": 35,
+    },
+  },
+}
+`;
+
+exports[`filePathToClassnameDict SCSS gets a dictionory of nested classnames for \`"dashes"\` setting 1`] = `
+Object {
+  ".accordion": Object {
+    "declarations": Array [
+      "max-width: 600px;",
+      "margin: 4rem auto;",
+      "width: 90%;",
+      "font-family: \\"Raleway\\", sans-serif;",
+      "background: #f4f4f4;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 69,
+    },
+  },
+  ".accordion__copy": Object {
+    "declarations": Array [
+      "display: none;",
+      "padding: 1rem 1.5rem 2rem 1.5rem;",
+      "color: gray;",
+      "line-height: 1.6;",
+      "font-size: 14px;",
+      "font-weight: 500;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 76,
+    },
+  },
+  ".accordion__copyOpen": Object {
+    "declarations": Array [
+      "display: block;",
+    ],
+    "position": Object {
+      "column": 9,
+      "line": 84,
+    },
+  },
+  ".accordion__sm": Object {
+    "declarations": Array [
+      "width: 100%;",
+    ],
+    "position": Object {
+      "column": 9,
+      "line": 90,
+    },
+  },
+  ".accordion__smShrink": Object {
+    "declarations": Array [
+      "width: 80%;",
+    ],
+    "position": Object {
+      "column": 13,
+      "line": 93,
+    },
+  },
+  ".alert": Object {
+    "declarations": Array [
+      "border: 1px solid $border-dark;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 58,
+    },
+  },
+  ".inMedia": Object {
+    "declarations": Array [
+      "color: hotpink;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 101,
+    },
+  },
+  ".inMedia__mod": Object {
+    "declarations": Array [
+      "color: yellow;",
+    ],
+    "position": Object {
+      "column": 9,
+      "line": 104,
+    },
+  },
+  ".pulse": Object {
+    "declarations": Array [],
+    "position": Object {
+      "column": 1,
+      "line": 46,
+    },
+  },
+}
+`;
+
+exports[`filePathToClassnameDict SCSS gets a dictionory of nested classnames for \`false\` setting 1`] = `
+Object {
+  ".accordion": Object {
+    "declarations": Array [
+      "max-width: 600px;",
+      "margin: 4rem auto;",
+      "width: 90%;",
+      "font-family: \\"Raleway\\", sans-serif;",
+      "background: #f4f4f4;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 69,
+    },
+  },
+  ".accordion__copy": Object {
+    "declarations": Array [
+      "display: none;",
+      "padding: 1rem 1.5rem 2rem 1.5rem;",
+      "color: gray;",
+      "line-height: 1.6;",
+      "font-size: 14px;",
+      "font-weight: 500;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 76,
+    },
+  },
+  ".accordion__copy--open": Object {
+    "declarations": Array [
+      "display: block;",
+    ],
+    "position": Object {
+      "column": 9,
+      "line": 84,
+    },
+  },
+  ".accordion__sm": Object {
+    "declarations": Array [
+      "width: 100%;",
+    ],
+    "position": Object {
+      "column": 9,
+      "line": 90,
+    },
+  },
+  ".accordion__sm--shrink": Object {
+    "declarations": Array [
+      "width: 80%;",
+    ],
+    "position": Object {
+      "column": 13,
+      "line": 93,
+    },
+  },
+  ".alert": Object {
+    "declarations": Array [
+      "border: 1px solid $border-dark;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 58,
+    },
+  },
+  ".inMedia": Object {
+    "declarations": Array [
+      "color: hotpink;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 101,
+    },
+  },
+  ".inMedia__mod": Object {
+    "declarations": Array [
+      "color: yellow;",
+    ],
+    "position": Object {
+      "column": 9,
+      "line": 104,
+    },
+  },
+  ".pulse": Object {
+    "declarations": Array [],
+    "position": Object {
+      "column": 1,
+      "line": 46,
+    },
+  },
+}
+`;
+
+exports[`filePathToClassnameDict SCSS gets a dictionory of nested classnames for \`true\` setting 1`] = `
+Object {
+  ".accordion": Object {
+    "declarations": Array [
+      "max-width: 600px;",
+      "margin: 4rem auto;",
+      "width: 90%;",
+      "font-family: \\"Raleway\\", sans-serif;",
+      "background: #f4f4f4;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 69,
+    },
+  },
+  ".accordionCopy": Object {
+    "declarations": Array [
+      "display: none;",
+      "padding: 1rem 1.5rem 2rem 1.5rem;",
+      "color: gray;",
+      "line-height: 1.6;",
+      "font-size: 14px;",
+      "font-weight: 500;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 76,
+    },
+  },
+  ".accordionCopyOpen": Object {
+    "declarations": Array [
+      "display: block;",
+    ],
+    "position": Object {
+      "column": 9,
+      "line": 84,
+    },
+  },
+  ".accordionSm": Object {
+    "declarations": Array [
+      "width: 100%;",
+    ],
+    "position": Object {
+      "column": 9,
+      "line": 90,
+    },
+  },
+  ".accordionSmShrink": Object {
+    "declarations": Array [
+      "width: 80%;",
+    ],
+    "position": Object {
+      "column": 13,
+      "line": 93,
+    },
+  },
+  ".alert": Object {
+    "declarations": Array [
+      "border: 1px solid $border-dark;",
+    ],
+    "position": Object {
+      "column": 1,
+      "line": 58,
+    },
+  },
+  ".inMedia": Object {
+    "declarations": Array [
+      "color: hotpink;",
+    ],
+    "position": Object {
+      "column": 5,
+      "line": 101,
+    },
+  },
+  ".inMediaMod": Object {
+    "declarations": Array [
+      "color: yellow;",
+    ],
+    "position": Object {
+      "column": 9,
+      "line": 104,
+    },
+  },
+  ".pulse": Object {
+    "declarations": Array [],
+    "position": Object {
+      "column": 1,
+      "line": 46,
+    },
+  },
+}
+`;

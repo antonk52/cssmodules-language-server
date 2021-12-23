@@ -1,16 +1,20 @@
 import path from 'path';
 import {EOL} from 'os';
-import {Location, Position, Range} from 'vscode-languageserver-protocol';
+import {Hover, Location, Position, Range} from 'vscode-languageserver-protocol';
 import {TextDocument} from 'vscode-languageserver-textdocument';
 import * as lsp from 'vscode-languageserver/node';
 import {
     CamelCaseValues,
+    Classname,
+    filePathToClassnameDict,
     findImportPath,
     genImportRegExp,
     getCurrentDirFromUri,
     getPosition,
+    getTransformer,
     getWords,
     isImportLineMatch,
+    stringiyClassname,
 } from './utils';
 import {textDocuments} from './textDocuments';
 
@@ -33,6 +37,56 @@ export class CSSModulesDefinitionProvider {
 
         return this.provideDefinition(textdocument, params.position);
     };
+
+    hover = async (params: lsp.HoverParams) => {
+        const textdocument = textDocuments.get(params.textDocument.uri);
+        if (textdocument === undefined) {
+            return null;
+        }
+
+        return this.provideHover(textdocument, params.position);
+    };
+
+    async provideHover(
+        textdocument: TextDocument,
+        position: Position,
+    ): Promise<null | Hover> {
+        const fileContent = textdocument.getText();
+        const lines = fileContent.split(EOL);
+        const currentLine = lines[position.line];
+
+        if (typeof currentLine !== 'string') {
+            return null;
+        }
+        const currentDir = getCurrentDirFromUri(textdocument.uri);
+
+        const words = getWords(currentLine, position);
+        if (words === '' || words.indexOf('.') === -1) {
+            return null;
+        }
+
+        const [obj, field] = words.split('.');
+        const importPath = findImportPath(fileContent, obj, currentDir);
+        if (importPath === '') {
+            return null;
+        }
+
+        const dict = await filePathToClassnameDict(
+            importPath,
+            getTransformer(this._camelCaseConfig),
+        );
+
+        const node: void | Classname = dict[`.${field}`];
+
+        if (!node) return null;
+
+        return {
+            contents: {
+                language: 'css',
+                value: stringiyClassname(field, node.declarations),
+            },
+        };
+    }
 
     async provideDefinition(
         textdocument: TextDocument,

@@ -98,7 +98,9 @@ export async function getPosition(
     );
     const target = classDict[`.${className}`];
 
-    return target ? Position.create(target.line - 1, target.column) : null;
+    return target
+        ? Position.create(target.position.line - 1, target.position.column)
+        : null;
 }
 
 export function getWords(line: string, position: Position): string {
@@ -117,10 +119,17 @@ export function getWords(line: string, position: Position): string {
     return match[1];
 }
 
-type Classname = {
+type ClassnamePostion = {
     line: number;
     column: number;
 };
+
+export type Classname = {
+    position: ClassnamePostion;
+    declarations: string[];
+};
+
+type ClassnameDict = Record<string, Classname>;
 
 export const log = (...args: unknown[]) => {
     const timestamp = new Date().toLocaleTimeString('en-GB', {hour12: false});
@@ -201,7 +210,7 @@ function getParentRule(node: Node): undefined | Node {
 export async function filePathToClassnameDict(
     filepath: string,
     classnameTransformer: StringTransformer,
-): Promise<Record<string, Classname>> {
+): Promise<ClassnameDict> {
     const content = fs.readFileSync(filepath, {encoding: 'utf8'});
     const {ext} = path.parse(filepath);
 
@@ -230,7 +239,7 @@ export async function filePathToClassnameDict(
 
     const ast = await PostcssInst.process(content, postcssOptions);
     // TODO: root.walkRules and for each rule gather info about parents
-    const dict: Record<string, Classname> = {};
+    const dict: ClassnameDict = {};
 
     const visitedNodes = new Map<Node, {selectors: string[]}>([]);
     const stack = [...ast.root.nodes];
@@ -263,8 +272,16 @@ export async function filePathToClassnameDict(
                     const lastLine = lines[lines.length - 1];
 
                     dict[classnameTransformer(name)] = {
-                        column: column + lastLine.length,
-                        line: line + lines.length - 1,
+                        declarations: node.nodes.reduce<string[]>((acc, x) => {
+                            if (x.type === 'decl') {
+                                acc.push(`${x.prop}: ${x.value};`);
+                            }
+                            return acc;
+                        }, []),
+                        position: {
+                            column: column + lastLine.length,
+                            line: line + lines.length - 1,
+                        },
                     };
                 });
 
@@ -292,9 +309,24 @@ export async function filePathToClassnameDict(
                         const line = node.source.start?.line || 0;
 
                         // TODO: refine location to specific line by the classname's last characters
+                        // dict[classnameTransformer(classname)] = {
+                        //     column: column,
+                        //     line: line,
+                        // };
                         dict[classnameTransformer(classname)] = {
-                            column: column,
-                            line: line,
+                            declarations: node.nodes.reduce<string[]>(
+                                (acc, x) => {
+                                    if (x.type === 'decl') {
+                                        acc.push(`${x.prop}: ${x.value};`);
+                                    }
+                                    return acc;
+                                },
+                                [],
+                            ),
+                            position: {
+                                column: column,
+                                line: line,
+                            },
                         };
                     }),
                 );
@@ -326,4 +358,15 @@ export async function getAllClassNames(
     return keyword !== ''
         ? classList.filter(item => item.includes(keyword))
         : classList;
+}
+
+export function stringiyClassname(
+    classname: string,
+    declarations: string[],
+): string {
+    return [
+        `.${classname} {${declarations.length ? '' : '}'}`,
+        ...declarations.map(x => `  ${x}`),
+        ...(declarations.length ? ['}'] : []),
+    ].join(EOL);
 }

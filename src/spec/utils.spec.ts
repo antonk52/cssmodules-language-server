@@ -13,46 +13,8 @@ describe('filePathToClassnameDict', () => {
                 filepath,
                 getTransformer(false),
             );
-            const expected = {
-                '.single': {
-                    line: 1,
-                    column: 1,
-                },
-                '.one': {
-                    line: 5,
-                    column: 1,
-                },
-                '.two': {
-                    line: 5,
-                    column: 5,
-                },
-                '.block--element__mod': {
-                    line: 9,
-                    column: 1,
-                },
-                '.m-9': {
-                    line: 13,
-                    column: 1,
-                },
-                '.💩': {
-                    column: 1,
-                    line: 17,
-                },
-                '.🔥🚒': {
-                    column: 1,
-                    line: 21,
-                },
-                '.🤢-_-😷': {
-                    column: 1,
-                    line: 25,
-                },
-                '.inMedia': {
-                    column: 5,
-                    line: 30,
-                },
-            };
 
-            expect(result).toEqual(expected);
+            expect(result).toMatchSnapshot();
         });
 
         it('gets a dictionory of nested classnames', async () => {
@@ -61,49 +23,8 @@ describe('filePathToClassnameDict', () => {
                 filepath,
                 getTransformer(false),
             );
-            const expected = {
-                '.single': {
-                    line: 1,
-                    column: 1,
-                },
-                '.parent': {
-                    line: 5,
-                    column: 1,
-                },
-                '.child': {
-                    line: 6,
-                    // TODO: targets the first element from the selector
-                    // instead of the actual classname
-                    column: 5,
-                },
-                '.parent--aa': {
-                    line: 25,
-                    column: 5,
-                },
-                '.parent--bb': {
-                    line: 25,
-                    // TODO: same errro as for `.child`
-                    column: 5,
-                },
-                '.parent--mod': {
-                    line: 10,
-                    column: 5,
-                },
-                '.parent--mod--addon': {
-                    line: 13,
-                    column: 9,
-                },
-                '.inMedia': {
-                    line: 32,
-                    column: 5,
-                },
-                '.inMedia__mod': {
-                    line: 35,
-                    column: 9,
-                },
-            };
 
-            expect(result).toEqual(expected);
+            expect(result).toMatchSnapshot();
         });
 
         // TODO
@@ -117,32 +38,8 @@ describe('filePathToClassnameDict', () => {
                 filepath,
                 getTransformer(false),
             );
-            const expected = {
-                '.parent': {
-                    line: 1,
-                    column: 1,
-                },
-                '.child': {
-                    line: 2,
-                    // TODO: targets the first element from the selector
-                    // instead of the actual classname
-                    column: 5,
-                },
-                '.parent--alt': {
-                    line: 7,
-                    column: 5,
-                },
-                '.parent--mod': {
-                    line: 6,
-                    column: 5,
-                },
-                '.parent--mod--addon': {
-                    line: 16,
-                    column: 9,
-                },
-            };
 
-            expect(result).toEqual(expected);
+            expect(result).toMatchSnapshot();
         });
     });
 
@@ -153,94 +50,8 @@ describe('filePathToClassnameDict', () => {
                 filepath,
                 getTransformer(false),
             );
-            const expected = {
-                '.single': {
-                    line: 10,
-                    column: 1,
-                },
-                '.button': {
-                    column: 1,
-                    line: 14,
-                },
-                '.button-cancel': {
-                    column: 5,
-                    line: 18,
-                },
-                '.button-custom': {
-                    column: 5,
-                    line: 22,
-                },
-                '.button-ok': {
-                    column: 5,
-                    line: 15,
-                },
-                '.class': {
-                    column: 1,
-                    line: 52,
-                },
-                '.container': {
-                    column: 1,
-                    line: 121,
-                },
-                '.element': {
-                    column: 5,
-                    line: 74,
-                },
-                '.inner': {
-                    column: 5,
-                    line: 98,
-                },
-                '.inside-the-css-guard': {
-                    column: 5,
-                    line: 105,
-                },
-                '.link': {
-                    column: 1,
-                    line: 27,
-                },
-                '.linkish': {
-                    column: 5,
-                    line: 40,
-                },
-                '.math': {
-                    column: 1,
-                    line: 45,
-                },
-                '.mixin': {
-                    column: 1,
-                    line: 88,
-                },
-                '.my-optional-style': {
-                    column: 1,
-                    line: 104,
-                },
-                '.myclass': {
-                    column: 1,
-                    line: 91,
-                },
-                '.section': {
-                    column: 1,
-                    line: 71,
-                },
-                '.inMedia': {
-                    column: 5,
-                    line: 112,
-                },
-                '.inMedia__mod': {
-                    column: 9,
-                    line: 115,
-                },
-                '.withinMedia': {
-                    column: 9,
-                    line: 123,
-                },
-                '.withinMedia__mod': {
-                    column: 13,
-                    line: 126,
-                },
-            };
 
-            expect(result).toEqual(expected);
+            expect(result).toMatchSnapshot();
         });
     });
 
@@ -251,46 +62,7 @@ describe('filePathToClassnameDict', () => {
                 filepath,
                 getTransformer(false),
             );
-            const expected = {
-                '.accordion': {
-                    column: 1,
-                    line: 69,
-                },
-                '.accordion__copy': {
-                    column: 5,
-                    line: 76,
-                },
-                '.accordion__copy--open': {
-                    column: 9,
-                    line: 84,
-                },
-                '.accordion__sm': {
-                    column: 9,
-                    line: 90,
-                },
-                '.accordion__sm--shrink': {
-                    column: 13,
-                    line: 93,
-                },
-                '.alert': {
-                    column: 1,
-                    line: 58,
-                },
-                '.pulse': {
-                    column: 1,
-                    line: 46,
-                },
-                '.inMedia': {
-                    column: 5,
-                    line: 101,
-                },
-                '.inMedia__mod': {
-                    column: 9,
-                    line: 104,
-                },
-            };
-
-            expect(result).toEqual(expected);
+            expect(result).toMatchSnapshot();
         });
 
         it('gets a dictionory of nested classnames for `true` setting', async () => {
@@ -299,46 +71,8 @@ describe('filePathToClassnameDict', () => {
                 filepath,
                 getTransformer(true),
             );
-            const expected = {
-                '.accordion': {
-                    column: 1,
-                    line: 69,
-                },
-                '.accordionCopy': {
-                    column: 5,
-                    line: 76,
-                },
-                '.accordionCopyOpen': {
-                    column: 9,
-                    line: 84,
-                },
-                '.accordionSm': {
-                    column: 9,
-                    line: 90,
-                },
-                '.accordionSmShrink': {
-                    column: 13,
-                    line: 93,
-                },
-                '.alert': {
-                    column: 1,
-                    line: 58,
-                },
-                '.pulse': {
-                    column: 1,
-                    line: 46,
-                },
-                '.inMedia': {
-                    column: 5,
-                    line: 101,
-                },
-                '.inMediaMod': {
-                    column: 9,
-                    line: 104,
-                },
-            };
 
-            expect(result).toEqual(expected);
+            expect(result).toMatchSnapshot();
         });
 
         it('gets a dictionory of nested classnames for `"dashes"` setting', async () => {
@@ -347,46 +81,8 @@ describe('filePathToClassnameDict', () => {
                 filepath,
                 getTransformer('dashes'),
             );
-            const expected = {
-                '.accordion': {
-                    column: 1,
-                    line: 69,
-                },
-                '.accordion__copy': {
-                    column: 5,
-                    line: 76,
-                },
-                '.accordion__copyOpen': {
-                    column: 9,
-                    line: 84,
-                },
-                '.accordion__sm': {
-                    column: 9,
-                    line: 90,
-                },
-                '.accordion__smShrink': {
-                    column: 13,
-                    line: 93,
-                },
-                '.alert': {
-                    column: 1,
-                    line: 58,
-                },
-                '.pulse': {
-                    column: 1,
-                    line: 46,
-                },
-                '.inMedia': {
-                    column: 5,
-                    line: 101,
-                },
-                '.inMedia__mod': {
-                    column: 9,
-                    line: 104,
-                },
-            };
 
-            expect(result).toEqual(expected);
+            expect(result).toMatchSnapshot();
         });
     });
 
@@ -397,38 +93,8 @@ describe('filePathToClassnameDict', () => {
                 filepath,
                 getTransformer(false),
             );
-            const expected = {
-                '.accordion': {
-                    column: 1,
-                    line: 55,
-                },
-                '.accordion__copy': {
-                    column: 5,
-                    line: 62,
-                },
-                '.accordion__copy--open': {
-                    column: 9,
-                    line: 70,
-                },
-                '.alert': {
-                    column: 1,
-                    line: 48,
-                },
-                '.pulse': {
-                    column: 1,
-                    line: 35,
-                },
-                '.inMedia': {
-                    column: 5,
-                    line: 74,
-                },
-                '.inMedia__mod': {
-                    column: 9,
-                    line: 77,
-                },
-            };
 
-            expect(result).toEqual(expected);
+            expect(result).toMatchSnapshot();
         });
     });
 });
