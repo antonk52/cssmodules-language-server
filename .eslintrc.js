@@ -8,7 +8,7 @@ module.exports = {
     plugins: ['@typescript-eslint', 'prettier'],
     parser: '@typescript-eslint/parser',
     rules: {
-        indent: ['error', 4, {SwitchCase: 1}],
+        indent: 0,
         '@typescript-eslint/no-var-requires': 0,
         '@typescript-eslint/no-unused-vars': 'error',
         '@typescript-eslint/explicit-module-boundary-types': 0,

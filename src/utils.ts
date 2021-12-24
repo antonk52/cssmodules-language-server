@@ -6,7 +6,7 @@ import fs from 'fs';
 import _camelCase from 'lodash.camelcase';
 
 import postcss from 'postcss';
-import type {Node, Parser, ProcessOptions} from 'postcss';
+import type {Node, Parser, ProcessOptions, Comment} from 'postcss';
 
 export function getCurrentDirFromUri(uri: DocumentUri) {
     return path.dirname(uri).replace(/^file:\/\//, '');
@@ -127,6 +127,7 @@ type ClassnamePostion = {
 export type Classname = {
     position: ClassnamePostion;
     declarations: string[];
+    comments: string[];
 };
 
 type ClassnameDict = Record<string, Classname>;
@@ -197,12 +198,18 @@ function getParentRule(node: Node): undefined | Node {
  * ```
  * {
  *     '.foo': {
- *         line: 10,
- *         column: 5,
+ *         declarations: [],
+ *         position: {
+ *             line: 10,
+ *             column: 5,
+ *         },
  *     },
  *     '.bar': {
- *         line: 22,
- *         column: 1,
+ *         declarations: ['width: 52px'],
+ *         position: {
+ *             line: 22,
+ *             column: 1,
+ *         }
  *     }
  * }
  * ```
@@ -243,11 +250,17 @@ export async function filePathToClassnameDict(
 
     const visitedNodes = new Map<Node, {selectors: string[]}>([]);
     const stack = [...ast.root.nodes];
+    let commentStack: Comment[] = [];
 
     while (stack.length) {
         const node = stack.shift();
+        if (node?.type === 'comment') {
+            commentStack.push(node);
+            continue;
+        }
         if (node?.type === 'atrule' && node.name.toLowerCase() === 'media') {
             stack.unshift(...node.nodes);
+            commentStack = [];
             continue;
         }
         if (node?.type !== 'rule') continue;
@@ -282,7 +295,9 @@ export async function filePathToClassnameDict(
                             column: column + lastLine.length,
                             line: line + lines.length - 1,
                         },
+                        comments: commentStack.map(x => x.text),
                     };
+                    commentStack = [];
                 });
 
                 visitedNodes.set(node, {selectors});
@@ -309,10 +324,6 @@ export async function filePathToClassnameDict(
                         const line = node.source.start?.line || 0;
 
                         // TODO: refine location to specific line by the classname's last characters
-                        // dict[classnameTransformer(classname)] = {
-                        //     column: column,
-                        //     line: line,
-                        // };
                         dict[classnameTransformer(classname)] = {
                             declarations: node.nodes.reduce<string[]>(
                                 (acc, x) => {
@@ -327,7 +338,9 @@ export async function filePathToClassnameDict(
                                 column: column,
                                 line: line,
                             },
+                            comments: commentStack.map(x => x.text),
                         };
+                        commentStack = [];
                     }),
                 );
 
@@ -363,10 +376,30 @@ export async function getAllClassNames(
 export function stringiyClassname(
     classname: string,
     declarations: string[],
+    comments: string[],
 ): string {
-    return [
-        `.${classname} {${declarations.length ? '' : '}'}`,
-        ...declarations.map(x => `  ${x}`),
-        ...(declarations.length ? ['}'] : []),
-    ].join(EOL);
+    const commentString = comments.length
+        ? comments
+              .map(x => {
+                  const lines = x.split(EOL);
+                  if (lines.length < 2) {
+                      return `/*${x} */`;
+                  } else {
+                      return [
+                          `/*${lines[0]}`,
+                          ...lines.slice(1).map(y => ` ${y.trimStart()}`),
+                          ' */',
+                      ].join(EOL);
+                  }
+              })
+              .join(EOL) + EOL
+        : '';
+    return (
+        commentString +
+        [
+            `.${classname} {${declarations.length ? '' : '}'}`,
+            ...declarations.map(x => `  ${x}`),
+            ...(declarations.length ? ['}'] : []),
+        ].join(EOL)
+    );
 }
