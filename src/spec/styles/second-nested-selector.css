@@ -9,10 +9,12 @@
         color: yellow;
     }
 
+    /* hover */
     &--mod:hover {
         color: green;
     }
 
+    /* foo bar */
     /**
      * things on the first line
      * things on the second line

@@ -195,7 +195,7 @@ function getParentRule(node: Node): undefined | Node {
  *
  * output
  *
- * ```
+ * ```js
  * {
  *     '.foo': {
  *         declarations: [],
@@ -254,16 +254,19 @@ export async function filePathToClassnameDict(
 
     while (stack.length) {
         const node = stack.shift();
-        if (node?.type === 'comment') {
+        if (node === undefined) continue;
+        if (node.type === 'comment') {
             commentStack.push(node);
             continue;
         }
-        if (node?.type === 'atrule' && node.name.toLowerCase() === 'media') {
-            stack.unshift(...node.nodes);
+        if (node.type === 'atrule') {
+            if (node.name.toLowerCase() === 'media') {
+                stack.unshift(...node.nodes);
+            }
             commentStack = [];
             continue;
         }
-        if (node?.type !== 'rule') continue;
+        if (node.type !== 'rule') continue;
 
         const selectors = node.selector.split(',').map(sanitizeSelector);
 
