@@ -1,3 +1,4 @@
+/** foo bar */
 .parent {
     & .child {
         color: red;
@@ -8,10 +9,18 @@
         color: yellow;
     }
 
+    /* hover */
     &--mod:hover {
         color: green;
     }
 
+    /* foo bar */
+    /**
+     * things on the first line
+     * things on the second line
+     * things on the third line
+     * things on the fourth line
+     */
     &--mod {
         &--addon {
             color: lightgreen;

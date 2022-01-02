@@ -7,7 +7,7 @@ import * as path from 'path';
 
 describe('filePathToClassnameDict', () => {
     describe('CSS', () => {
-        it('gets a dictionory of classnames and their location', async () => {
+        it('gets a dictionary of classnames and their location', async () => {
             const filepath = path.join(__dirname, 'styles', 'regular.css');
             const result = await filePathToClassnameDict(
                 filepath,
@@ -17,7 +17,7 @@ describe('filePathToClassnameDict', () => {
             expect(result).toMatchSnapshot();
         });
 
-        it('gets a dictionory of nested classnames', async () => {
+        it('gets a dictionary of nested classnames', async () => {
             const filepath = path.join(__dirname, 'styles', 'nested.css');
             const result = await filePathToClassnameDict(
                 filepath,
@@ -44,7 +44,7 @@ describe('filePathToClassnameDict', () => {
     });
 
     describe('LESS', () => {
-        it('gets a dictionory of nested classnames from less files', async () => {
+        it('gets a dictionary of nested classnames from less files', async () => {
             const filepath = path.join(__dirname, 'styles', 'nested.less');
             const result = await filePathToClassnameDict(
                 filepath,
@@ -56,7 +56,7 @@ describe('filePathToClassnameDict', () => {
     });
 
     describe('SCSS', () => {
-        it('gets a dictionory of nested classnames for `false` setting', async () => {
+        it('gets a dictionary of nested classnames for `false` setting', async () => {
             const filepath = path.join(__dirname, 'styles', 'nested.scss');
             const result = await filePathToClassnameDict(
                 filepath,
@@ -65,7 +65,7 @@ describe('filePathToClassnameDict', () => {
             expect(result).toMatchSnapshot();
         });
 
-        it('gets a dictionory of nested classnames for `true` setting', async () => {
+        it('gets a dictionary of nested classnames for `true` setting', async () => {
             const filepath = path.join(__dirname, 'styles', 'nested.scss');
             const result = await filePathToClassnameDict(
                 filepath,
@@ -75,7 +75,7 @@ describe('filePathToClassnameDict', () => {
             expect(result).toMatchSnapshot();
         });
 
-        it('gets a dictionory of nested classnames for `"dashes"` setting', async () => {
+        it('gets a dictionary of nested classnames for `"dashes"` setting', async () => {
             const filepath = path.join(__dirname, 'styles', 'nested.scss');
             const result = await filePathToClassnameDict(
                 filepath,
@@ -87,7 +87,7 @@ describe('filePathToClassnameDict', () => {
     });
 
     describe('SASS', () => {
-        it('gets a dictionory of nested classnames', async () => {
+        it('gets a dictionary of nested classnames', async () => {
             const filepath = path.join(__dirname, 'styles', 'nested.sass');
             const result = await filePathToClassnameDict(
                 filepath,

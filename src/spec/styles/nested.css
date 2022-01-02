@@ -2,6 +2,7 @@
     color: red;
 }
 
+/** foo bar */
 .parent {
     & .child {
         color: red;

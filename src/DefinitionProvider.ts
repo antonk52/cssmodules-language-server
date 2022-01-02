@@ -83,7 +83,11 @@ export class CSSModulesDefinitionProvider {
         return {
             contents: {
                 language: 'css',
-                value: stringiyClassname(field, node.declarations),
+                value: stringiyClassname(
+                    field,
+                    node.declarations,
+                    node.comments,
+                ),
             },
         };
     }

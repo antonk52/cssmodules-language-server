@@ -4,6 +4,12 @@ Language server for `autocompletion` and `go-to-definition` functionality for cs
 
 <p align="center"><img src="https://user-images.githubusercontent.com/5817809/76164832-0adaf600-6163-11ea-8c8e-548b7aeb1213.gif"></p>
 
+Features:
+
+- **definition** jumps to class name under cursor.
+- **implementation** (works the same as definition).
+- **hover** provides comments before the class name with direct declarations within the class name.
+
 The supported languages are `css`(postcss), `sass` and `scss`. `styl` files are parsed as regular `css`.
 
 ## Installation
@@ -18,33 +24,29 @@ See if your editor supports language servers or if there is a plugin to add supp
 
 ### Neovim
 
-Example uses [`nvim-lspconfig`](https://github.com/neovim/lspconfig)
+Example uses [`nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig)
 
 ```lua
-local configs = require'lspconfig/configs'
+require'lspconfig'.cssmodules_ls.setup {
+    -- provide your on_attach to bind keymappings
+    on_attach = custom_on_attach,
+    -- optionally
+    init_options = {
+        camelCase = 'dashes',
+    },
+}
+```
 
-if not configs.cssmodules then
-    configs.cssmodules = {
-        default_config = {
-            cmd = {'cssmodules-language-server'},
-            filetypes = {'javascript', 'javascriptreact', 'typescript', 'typescriptreact'},
-            init_options = {
-                camelCase = 'dashes',
-            },
-            root_dir = require('lspconfig.util').root_pattern('package.json')
-        },
-        docs = {
-            description = 'TODO description',
-            default_config = {
-                root_dir = '[[root_pattern("package.json")]]'
-            }
-        }
-    }
-end
+**Known issue**: if you have multiple LSP that provide hover and go-to-definition support, there can be races(example typescript and cssmodules-language-server work simultaneously). As a workaround you can disable **definition** in favor of **implementation** to avoid conflicting with typescript's go-to-definition.
 
-configs.cssmodules.setup {}
--- or
--- configs.cssmodules.setup {on_attach = custom_on_attach}
+```lua
+require'lspconfig'.cssmodules_ls.setup {
+    on_attach = function (client)
+        -- avoid accepting `go-to-definition` responses from this LSP
+        client.resolved_capabilities.goto_definition = false
+        custom_on_attach(client)
+    end,
+}
 ```
 
 ### [coc.nvim](https://github.com/neoclide/coc.nvim)
