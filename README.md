@@ -4,6 +4,12 @@ Language server for `autocompletion` and `go-to-definition` functionality for cs
 
 <p align="center"><img src="https://user-images.githubusercontent.com/5817809/76164832-0adaf600-6163-11ea-8c8e-548b7aeb1213.gif"></p>
 
+Features:
+
+- **definition** jumps to class name under cursor.
+- **implementation** (works the same as definition).
+- **hover** provides comments before the class name with direct declarations within the class name.
+
 The supported languages are `css`(postcss), `sass` and `scss`. `styl` files are parsed as regular `css`.
 
 ## Installation
