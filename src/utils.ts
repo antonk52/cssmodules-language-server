@@ -8,6 +8,8 @@ import _camelCase from 'lodash.camelcase';
 import postcss from 'postcss';
 import type {Node, Parser, ProcessOptions, Comment} from 'postcss';
 
+import {resolveAliasedImport} from './utils/resolveAliasedImport';
+
 export function getCurrentDirFromUri(uri: DocumentUri) {
     return path.dirname(uri).replace(/^file:\/\//, '');
 }
@@ -23,6 +25,15 @@ export function genImportRegExp(importName: string): RegExp {
     return new RegExp(pattern);
 }
 
+function isRelativeFilePath(str: string): boolean {
+    return str.startsWith('../') || str.startsWith('./');
+}
+
+/**
+ * Returns absolute file path to a file where css modules is from or an empty string
+ *
+ * @example "/users/foo/path/to/project/styles/foo.css"
+ */
 export function findImportPath(
     fileContent: string,
     importName: string,
@@ -31,11 +42,23 @@ export function findImportPath(
     const re = genImportRegExp(importName);
     const results = re.exec(fileContent);
 
-    if (!!results && results.length > 0) {
-        return path.resolve(directoryPath, results[1]);
-    } else {
+    if (results == null) {
         return '';
     }
+
+    const rawImportedFrom = results[1];
+
+    // "./style.modules.css" or "../../style.modules.css"
+    if (isRelativeFilePath(rawImportedFrom)) {
+        return path.resolve(directoryPath, results[1]);
+    }
+
+    return (
+        resolveAliasedImport({
+            importFilepath: rawImportedFrom,
+            location: directoryPath,
+        }) ?? ''
+    );
 }
 
 export type StringTransformer = (str: string) => string;
@@ -140,7 +163,7 @@ export const log = (...args: unknown[]) => {
         )
         .join('\n\t');
 
-    fs.writeFileSync('/tmp/log-cssmodules', `\n[${timestamp}] ${msg}`);
+    fs.appendFileSync('/tmp/log-cssmodules', `\n[${timestamp}] ${msg}\n`);
 };
 
 const sanitizeSelector = (selector: string) =>
