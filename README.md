@@ -62,6 +62,32 @@ let cssmodules_config = {
 coc#config('languageserver.cssmodules', cssmodules_config)
 ```
 
+### [AstroNvim](https://github.com/AstroNvim/AstroNvim)
+
+As per [`AstroNvim's documentation`](https://astronvim.github.io/#%EF%B8%8F-installation), you can install cssmodules_ls with:
+
+```vim
+:TSInstall cssmodules_ls
+```
+
+**Known issue**: since AstroNvim uses `nvim-lspconfig`, it suffers from the same issue as above. Here's a workaround to be inserted into init.nvim:
+```lua
+  -- previous config
+  lsp = {
+    -- previous configuration
+    ["server-settings"] = {
+      cssmodules_ls = {
+        capabilities = {
+          definitionProvider = false,
+        },
+      },
+    },
+}
+```
+From then, you can use `gI` which is the default shortcut for (go to implementation) as opposed to the usual `gd`.
+
+For more information on how to config LSP for AstroNvim, please refer to the [`Advanced LSP`](https://astronvim.github.io/Recipes/advanced_lsp) part of the documentation.
+
 ## Initialization options
 
 ### `camelCase`
