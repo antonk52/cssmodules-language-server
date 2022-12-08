@@ -63,6 +63,7 @@ coc#config('languageserver.cssmodules', cssmodules_config)
 ```
 
 ### [AstroNvim](https://github.com/AstroNvim/AstroNvim)
+
 As per [`AstroNvim's documentation`](https://astronvim.github.io/#%EF%B8%8F-installation), you can install cssmodules_ls with:
 
 ```vim
