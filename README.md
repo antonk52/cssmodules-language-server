@@ -50,6 +50,7 @@ require'lspconfig'.cssmodules_ls.setup {
 ```
 
 ### [coc.nvim](https://github.com/neoclide/coc.nvim)
+
 ```vim
 let cssmodules_config = {
 \ "command": "cssmodules-language-server",
