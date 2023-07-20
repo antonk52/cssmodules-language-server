@@ -102,7 +102,7 @@ If you write kebab-case classes in css files, but want to get camelCase complete
 
 You can set the `cssmodules.camelCase` option to `true`, `"dashes"` or `false`(default).
 
-| Classname in css file | `true`            | `dashes`        | `false`(default)  |
+| Classname in css file | `true`(default    | `dashes`        | `false`           |
 | --------------------- | ----------------- | --------------- | ----------------- |
 | `.button`             | `.button`         | `.button`       | `.button`         |
 | `.btn__icon--mod`     | `.btnIconMod`     | `.btn__iconMod` | `.btn__icon--mod` |
