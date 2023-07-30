@@ -6,6 +6,10 @@ import {lilconfigSync} from 'lilconfig';
 const validate = {
     string: (x: unknown): x is string => typeof x === 'string',
     tsconfigPaths: (x: unknown): x is TsconfigPaths => {
+        if (x === undefined || x === null) {
+            return true;
+        }
+
         if (typeof x !== 'object' || x == null || Array.isArray(x)) {
             return false;
         }
@@ -27,7 +31,7 @@ const validate = {
     },
 };
 
-type TsconfigPaths = Record<string, string[]>;
+type TsconfigPaths = null | undefined | Record<string, string[]>;
 
 /**
  * Attempts to resolve aliased file paths using tsconfig or jsconfig
@@ -59,13 +63,15 @@ export const resolveAliasedImport = ({
         return null;
     }
 
-    const paths = config.config?.compilerOptions?.paths as void | TsconfigPaths;
-    const baseUrl = config.config?.compilerOptions?.baseUrl as void | string;
+    const paths: unknown = config.config?.compilerOptions?.paths;
+    const baseUrl: unknown = config.config?.compilerOptions?.baseUrl;
+
     const configLocation = path.dirname(config.filepath);
 
     if (!validate.string(baseUrl)) {
         return null;
     }
+
     if (!validate.tsconfigPaths(paths)) {
         return null;
     }
@@ -90,6 +96,18 @@ export const resolveAliasedImport = ({
 
             return resolvedFileLocation;
         }
+    }
+
+    // try to just use the baseUrl to resolve imports
+    // if not paths matched, still is a valid import
+    const resolvedFileLocation = path.resolve(
+        configLocation,
+        baseUrl,
+        importFilepath,
+    );
+
+    if (fs.existsSync(resolvedFileLocation)) {
+        return resolvedFileLocation;
     }
 
     return null;
