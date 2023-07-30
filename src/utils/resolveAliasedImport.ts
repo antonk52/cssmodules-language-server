@@ -14,20 +14,17 @@ const validate = {
             return false;
         }
 
-        for (const key in x) {
-            const value =
-                // @ts-expect-error: here "key" can be used to index object
-                x[key];
-            if (
-                !Array.isArray(value) &&
-                value.length > 0 &&
-                !value.every(validate.string)
-            ) {
-                return false;
-            }
-        }
+        const paths = x as Record<string, unknown>;
 
-        return true;
+        const isValid = Object.values(paths).every(value => {
+            return (
+                Array.isArray(value) &&
+                value.length > 0 &&
+                value.every(validate.string)
+            );
+        });
+
+        return isValid;
     },
 };
 
