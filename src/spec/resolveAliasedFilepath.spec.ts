@@ -45,7 +45,7 @@ describe('utils: resolveAliaedFilepath', () => {
         expect(result).toEqual(expected);
     });
 
-    it('returns null when "paths" is not set in the config', () => {
+    it('returns null when "paths" is not set in the config and path does not match', () => {
         (lilconfigSync as jest.Mock).mockReturnValueOnce({
             search: () => ({
                 config: {
@@ -57,6 +57,7 @@ describe('utils: resolveAliaedFilepath', () => {
                 filepath: '/path/to/config',
             }),
         });
+        (existsSync as jest.Mock).mockReturnValue(false);
         const result = resolveAliasedImport({
             location: '',
             importFilepath: '',
@@ -66,7 +67,29 @@ describe('utils: resolveAliaedFilepath', () => {
         expect(result).toEqual(expected);
     });
 
-    it('returns null when no alias matched import path', () => {
+    it('returns resolved filepath when "paths" is not set in the config, and file exists', () => {
+        (lilconfigSync as jest.Mock).mockReturnValueOnce({
+            search: () => ({
+                config: {
+                    compilerOptions: {
+                        baseUrl: './',
+                        // missing "paths"
+                    },
+                },
+                filepath: '/path/to/tsconfig.json',
+            }),
+        });
+        (existsSync as jest.Mock).mockReturnValue(true);
+        const result = resolveAliasedImport({
+            location: '',
+            importFilepath: 'src/styles/file.css',
+        });
+        const expected = '/path/to/src/styles/file.css';
+
+        expect(result).toEqual(expected);
+    });
+
+    it('returns baseUrl-mapped path when no alias matched import path', () => {
         (lilconfigSync as jest.Mock).mockReturnValueOnce({
             search: () => ({
                 config: {
@@ -84,7 +107,7 @@ describe('utils: resolveAliaedFilepath', () => {
             location: '',
             importFilepath: '@foo',
         });
-        const expected = null;
+        const expected = '/path/to/@foo';
 
         expect(result).toEqual(expected);
     });
