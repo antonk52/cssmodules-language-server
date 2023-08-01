@@ -60,11 +60,13 @@ export const resolveAliasedImport = ({
 
     const potentialBaseUrl: unknown = config.config?.compilerOptions?.baseUrl;
 
-    const baseUrl = validate.string(potentialBaseUrl) ? potentialBaseUrl : '.';
-
     const configLocation = path.dirname(config.filepath);
 
     if (validate.tsconfigPaths(paths)) {
+        const baseUrl = validate.string(potentialBaseUrl)
+            ? potentialBaseUrl
+            : '.';
+
         for (const alias in paths) {
             const aliasRe = new RegExp(alias.replace('*', '(.+)'), '');
 
@@ -89,14 +91,18 @@ export const resolveAliasedImport = ({
     }
 
     // fallback to baseUrl
-    const resolvedFileLocation = path.resolve(
-        configLocation,
-        baseUrl,
-        importFilepath,
-    );
+    // if paths is not defined, don't use the fallback for baseUrl
 
-    if (fs.existsSync(resolvedFileLocation)) {
-        return resolvedFileLocation;
+    if (validate.string(potentialBaseUrl)) {
+        const resolvedFileLocation = path.resolve(
+            configLocation,
+            potentialBaseUrl,
+            importFilepath,
+        );
+
+        if (fs.existsSync(resolvedFileLocation)) {
+            return resolvedFileLocation;
+        }
     }
 
     return null;
