@@ -88,20 +88,31 @@ export const resolveAliasedImport = ({
                 return resolvedFileLocation;
             }
         }
-    }
 
-    // fallback to baseUrl
-    // if paths is not defined, don't use the fallback for baseUrl
-
-    if (validate.string(potentialBaseUrl)) {
+        // fallback to baseUrl of '.' only when paths are defined and valid
         const resolvedFileLocation = path.resolve(
             configLocation,
-            potentialBaseUrl,
+            baseUrl,
             importFilepath,
         );
 
         if (fs.existsSync(resolvedFileLocation)) {
             return resolvedFileLocation;
+        }
+    } else {
+        // no fallback to baseUrl of '.' if paths are not valid
+        // typescript only provides the '.' default when paths are set
+        // otherwise, no imports relative to project root (or baseUrl) are allowed
+        if (validate.string(potentialBaseUrl)) {
+            const resolvedFileLocation = path.resolve(
+                configLocation,
+                potentialBaseUrl,
+                importFilepath,
+            );
+
+            if (fs.existsSync(resolvedFileLocation)) {
+                return resolvedFileLocation;
+            }
         }
     }
 
