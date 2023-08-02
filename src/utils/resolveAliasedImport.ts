@@ -90,9 +90,12 @@ export const resolveAliasedImport = ({
         }
     }
 
-    // fallback to baseUrl
-    // if paths is not defined, don't use the fallback for baseUrl
-
+    // if paths is defined, but no paths match
+    // then baseUrl will not fallback to "."
+    // if not using paths to find an alias, baseUrl must be defined
+    // so here we only try and resolve the file if baseUrl is explcitly set and valid
+    // i.e. if no baseUrl is provided
+    // then no imports relative to baseUrl on its own are allowed, only relative to paths
     if (validate.string(potentialBaseUrl)) {
         const resolvedFileLocation = path.resolve(
             configLocation,
