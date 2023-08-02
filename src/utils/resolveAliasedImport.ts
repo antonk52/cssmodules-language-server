@@ -10,20 +10,17 @@ const validate = {
             return false;
         }
 
-        for (const key in x) {
-            const value =
-                // @ts-expect-error: here "key" can be used to index object
-                x[key];
-            if (
-                !Array.isArray(value) &&
-                value.length > 0 &&
-                !value.every(validate.string)
-            ) {
-                return false;
-            }
-        }
+        const paths = x as Record<string, unknown>;
 
-        return true;
+        const isValid = Object.values(paths).every(value => {
+            return (
+                Array.isArray(value) &&
+                value.length > 0 &&
+                value.every(validate.string)
+            );
+        });
+
+        return isValid;
     },
 };
 
@@ -59,35 +56,54 @@ export const resolveAliasedImport = ({
         return null;
     }
 
-    const paths = config.config?.compilerOptions?.paths as void | TsconfigPaths;
-    const baseUrl = config.config?.compilerOptions?.baseUrl as void | string;
+    const paths: unknown = config.config?.compilerOptions?.paths;
+
+    const potentialBaseUrl: unknown = config.config?.compilerOptions?.baseUrl;
+
     const configLocation = path.dirname(config.filepath);
 
-    if (!validate.string(baseUrl)) {
-        return null;
+    if (validate.tsconfigPaths(paths)) {
+        const baseUrl = validate.string(potentialBaseUrl)
+            ? potentialBaseUrl
+            : '.';
+
+        for (const alias in paths) {
+            const aliasRe = new RegExp(alias.replace('*', '(.+)'), '');
+
+            const aliasMatch = importFilepath.match(aliasRe);
+
+            if (aliasMatch == null) continue;
+
+            for (const potentialAliasLocation of paths[alias]) {
+                const resolvedFileLocation = path.resolve(
+                    configLocation,
+                    baseUrl,
+                    potentialAliasLocation
+                        // "./utils/*" -> "./utils/style.module.css"
+                        .replace('*', aliasMatch[1]),
+                );
+
+                if (!fs.existsSync(resolvedFileLocation)) continue;
+
+                return resolvedFileLocation;
+            }
+        }
     }
-    if (!validate.tsconfigPaths(paths)) {
-        return null;
-    }
 
-    for (const alias in paths) {
-        const aliasRe = new RegExp(alias.replace('*', '(.+)'), '');
+    // if paths is defined, but no paths match
+    // then baseUrl will not fallback to "."
+    // if not using paths to find an alias, baseUrl must be defined
+    // so here we only try and resolve the file if baseUrl is explcitly set and valid
+    // i.e. if no baseUrl is provided
+    // then no imports relative to baseUrl on its own are allowed, only relative to paths
+    if (validate.string(potentialBaseUrl)) {
+        const resolvedFileLocation = path.resolve(
+            configLocation,
+            potentialBaseUrl,
+            importFilepath,
+        );
 
-        const aliasMatch = importFilepath.match(aliasRe);
-
-        if (aliasMatch == null) continue;
-
-        for (const potentialAliasLocation of paths[alias]) {
-            const resolvedFileLocation = path.resolve(
-                configLocation,
-                baseUrl,
-                potentialAliasLocation
-                    // "./utils/*" -> "./utils/style.module.css"
-                    .replace('*', aliasMatch[1]),
-            );
-
-            if (!fs.existsSync(resolvedFileLocation)) continue;
-
+        if (fs.existsSync(resolvedFileLocation)) {
             return resolvedFileLocation;
         }
     }
