@@ -341,33 +341,34 @@ export async function filePathToClassnameDict(
                     finsihedSel => finsihedSel.match(classNameRe),
                 );
 
-                finishedSelectorsAndClassNames.forEach(fscl =>
-                    fscl?.forEach(classname => {
-                        if (classname in dict) return;
-                        if (node.source === undefined) return;
+                finishedSelectorsAndClassNames.forEach(
+                    fscl =>
+                        fscl?.forEach(classname => {
+                            if (classname in dict) return;
+                            if (node.source === undefined) return;
 
-                        const column = node.source.start?.column || 0;
-                        const line = node.source.start?.line || 0;
+                            const column = node.source.start?.column || 0;
+                            const line = node.source.start?.line || 0;
 
-                        // TODO: refine location to specific line by the classname's last characters
-                        dict[classnameTransformer(classname)] = {
-                            declarations: node.nodes.reduce<string[]>(
-                                (acc, x) => {
-                                    if (x.type === 'decl') {
-                                        acc.push(`${x.prop}: ${x.value};`);
-                                    }
-                                    return acc;
+                            // TODO: refine location to specific line by the classname's last characters
+                            dict[classnameTransformer(classname)] = {
+                                declarations: node.nodes.reduce<string[]>(
+                                    (acc, x) => {
+                                        if (x.type === 'decl') {
+                                            acc.push(`${x.prop}: ${x.value};`);
+                                        }
+                                        return acc;
+                                    },
+                                    [],
+                                ),
+                                position: {
+                                    column: column,
+                                    line: line,
                                 },
-                                [],
-                            ),
-                            position: {
-                                column: column,
-                                line: line,
-                            },
-                            comments: commentStack.map(x => x.text),
-                        };
-                        commentStack = [];
-                    }),
+                                comments: commentStack.map(x => x.text),
+                            };
+                            commentStack = [];
+                        }),
                 );
 
                 visitedNodes.set(node, {selectors: finishedSelectors});
