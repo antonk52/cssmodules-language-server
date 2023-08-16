@@ -1,93 +1,93 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`filePathToClassnameDict CSS gets a dictionary of classnames and their location 1`] = `
-Object {
-  ".block--element__mod": Object {
-    "comments": Array [],
-    "declarations": Array [
+{
+  ".block--element__mod": {
+    "comments": [],
+    "declarations": [
       "color: green;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 9,
     },
   },
-  ".inMedia": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".inMedia": {
+    "comments": [],
+    "declarations": [
       "color: hotpink;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 30,
     },
   },
-  ".m-9": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".m-9": {
+    "comments": [],
+    "declarations": [
       "color: blue;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 13,
     },
   },
-  ".one": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".one": {
+    "comments": [],
+    "declarations": [
       "color: green;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 5,
     },
   },
-  ".single": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".single": {
+    "comments": [],
+    "declarations": [
       "color: red;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 1,
     },
   },
-  ".two": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".two": {
+    "comments": [],
+    "declarations": [
       "color: green;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 5,
     },
   },
-  ".💩": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".💩": {
+    "comments": [],
+    "declarations": [
       "color: brown;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 17,
     },
   },
-  ".🔥🚒": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".🔥🚒": {
+    "comments": [],
+    "declarations": [
       "color: yellow;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 21,
     },
   },
-  ".🤢-_-😷": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".🤢-_-😷": {
+    "comments": [],
+    "declarations": [
       "color: lime;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 25,
     },
@@ -96,93 +96,93 @@ Object {
 `;
 
 exports[`filePathToClassnameDict CSS gets a dictionary of nested classnames 1`] = `
-Object {
-  ".child": Object {
-    "comments": Array [],
-    "declarations": Array [
+{
+  ".child": {
+    "comments": [],
+    "declarations": [
       "color: red;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 7,
     },
   },
-  ".inMedia": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".inMedia": {
+    "comments": [],
+    "declarations": [
       "color: hotpink;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 33,
     },
   },
-  ".inMedia__mod": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".inMedia__mod": {
+    "comments": [],
+    "declarations": [
       "color: yellow;",
     ],
-    "position": Object {
+    "position": {
       "column": 9,
       "line": 36,
     },
   },
-  ".parent": Object {
-    "comments": Array [
+  ".parent": {
+    "comments": [
       "* foo bar",
     ],
-    "declarations": Array [],
-    "position": Object {
+    "declarations": [],
+    "position": {
       "column": 1,
       "line": 6,
     },
   },
-  ".parent--aa": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".parent--aa": {
+    "comments": [],
+    "declarations": [
       "color: rebeccapurple;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 26,
     },
   },
-  ".parent--bb": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".parent--bb": {
+    "comments": [],
+    "declarations": [
       "color: rebeccapurple;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 26,
     },
   },
-  ".parent--mod": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".parent--mod": {
+    "comments": [],
+    "declarations": [
       "color: green;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 11,
     },
   },
-  ".parent--mod--addon": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".parent--mod--addon": {
+    "comments": [],
+    "declarations": [
       "color: lightgreen;",
     ],
-    "position": Object {
+    "position": {
       "column": 9,
       "line": 14,
     },
   },
-  ".single": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".single": {
+    "comments": [],
+    "declarations": [
       "color: red;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 1,
     },
@@ -191,212 +191,212 @@ Object {
 `;
 
 exports[`filePathToClassnameDict LESS gets a dictionary of nested classnames from less files 1`] = `
-Object {
-  ".button": Object {
-    "comments": Array [],
-    "declarations": Array [],
-    "position": Object {
+{
+  ".button": {
+    "comments": [],
+    "declarations": [],
+    "position": {
       "column": 1,
       "line": 14,
     },
   },
-  ".button-cancel": Object {
-    "comments": Array [],
-    "declarations": Array [
-      "background-image: url(\\"cancel.png\\");",
+  ".button-cancel": {
+    "comments": [],
+    "declarations": [
+      "background-image: url("cancel.png");",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 18,
     },
   },
-  ".button-custom": Object {
-    "comments": Array [],
-    "declarations": Array [
-      "background-image: url(\\"custom.png\\");",
+  ".button-custom": {
+    "comments": [],
+    "declarations": [
+      "background-image: url("custom.png");",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 22,
     },
   },
-  ".button-ok": Object {
-    "comments": Array [],
-    "declarations": Array [
-      "background-image: url(\\"ok.png\\");",
+  ".button-ok": {
+    "comments": [],
+    "declarations": [
+      "background-image: url("ok.png");",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 15,
     },
   },
-  ".class": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".class": {
+    "comments": [],
+    "declarations": [
       "property: 1px * 2px;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 52,
     },
   },
-  ".container": Object {
-    "comments": Array [],
-    "declarations": Array [],
-    "position": Object {
+  ".container": {
+    "comments": [],
+    "declarations": [],
+    "position": {
       "column": 1,
       "line": 121,
     },
   },
-  ".element": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".element": {
+    "comments": [],
+    "declarations": [
       "color: @@color;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 74,
     },
   },
-  ".inMedia": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".inMedia": {
+    "comments": [],
+    "declarations": [
       "color: hotpink;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 112,
     },
   },
-  ".inMedia__mod": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".inMedia__mod": {
+    "comments": [],
+    "declarations": [
       "color: yellow;",
     ],
-    "position": Object {
+    "position": {
       "column": 9,
       "line": 115,
     },
   },
-  ".inner": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".inner": {
+    "comments": [],
+    "declarations": [
       "color: red;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 98,
     },
   },
-  ".inside-the-css-guard": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".inside-the-css-guard": {
+    "comments": [],
+    "declarations": [
       "color: white;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 105,
     },
   },
-  ".link": Object {
-    "comments": Array [],
-    "declarations": Array [],
-    "position": Object {
+  ".link": {
+    "comments": [],
+    "declarations": [],
+    "position": {
       "column": 1,
       "line": 27,
     },
   },
-  ".linkish": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".linkish": {
+    "comments": [],
+    "declarations": [
       "color: cyan;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 40,
     },
   },
-  ".math": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".math": {
+    "comments": [],
+    "declarations": [
       "a: 1 + 1;",
       "b: 2px / 2;",
       "c: 2px ./ 2;",
       "d: (2px / 2);",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 45,
     },
   },
-  ".mixin": Object {
-    "comments": Array [
+  ".mixin": {
+    "comments": [
       "extend",
       "mixins",
     ],
-    "declarations": Array [
+    "declarations": [
       "box-shadow+: inset 0 0 10px #555;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 88,
     },
   },
-  ".my-optional-style": Object {
-    "comments": Array [
+  ".my-optional-style": {
+    "comments": [
       "parent selectos without &",
       "CSS Guards",
     ],
-    "declarations": Array [],
-    "position": Object {
+    "declarations": [],
+    "position": {
       "column": 1,
       "line": 104,
     },
   },
-  ".myclass": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".myclass": {
+    "comments": [],
+    "declarations": [
       "box-shadow+: 0 0 20px black;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 91,
     },
   },
-  ".section": Object {
-    "comments": Array [],
-    "declarations": Array [],
-    "position": Object {
+  ".section": {
+    "comments": [],
+    "declarations": [],
+    "position": {
       "column": 1,
       "line": 71,
     },
   },
-  ".single": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".single": {
+    "comments": [],
+    "declarations": [
       "color: red;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 10,
     },
   },
-  ".withinMedia": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".withinMedia": {
+    "comments": [],
+    "declarations": [
       "color: hotpink;",
     ],
-    "position": Object {
+    "position": {
       "column": 9,
       "line": 123,
     },
   },
-  ".withinMedia__mod": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".withinMedia__mod": {
+    "comments": [],
+    "declarations": [
       "color: yellow;",
     ],
-    "position": Object {
+    "position": {
       "column": 13,
       "line": 126,
     },
@@ -405,28 +405,28 @@ Object {
 `;
 
 exports[`filePathToClassnameDict SASS gets a dictionary of nested classnames 1`] = `
-Object {
-  ".accordion": Object {
-    "comments": Array [
+{
+  ".accordion": {
+    "comments": [
       "parent selectors",
     ],
-    "declarations": Array [
+    "declarations": [
       "max-width: 600px;",
       "margin: 4rem auto;",
       "width: 90%;",
-      "font-family: \\"Raleway\\", sans-serif;",
+      "font-family: "Raleway", sans-serif;",
       "background: #f4f4f4;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 55,
     },
   },
-  ".accordion__copy": Object {
-    "comments": Array [
+  ".accordion__copy": {
+    "comments": [
       "variables",
     ],
-    "declarations": Array [
+    "declarations": [
       "display: none;",
       "padding: 1rem 1.5rem 2rem 1.5rem;",
       "color: gray;",
@@ -434,57 +434,57 @@ Object {
       "font-size: 14px;",
       "font-weight: 500;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 62,
     },
   },
-  ".accordion__copy--open": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".accordion__copy--open": {
+    "comments": [],
+    "declarations": [
       "display: block;",
     ],
-    "position": Object {
+    "position": {
       "column": 9,
       "line": 70,
     },
   },
-  ".alert": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".alert": {
+    "comments": [],
+    "declarations": [
       "border: 1px solid border-dark;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 48,
     },
   },
-  ".inMedia": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".inMedia": {
+    "comments": [],
+    "declarations": [
       "color: hotpink;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 74,
     },
   },
-  ".inMedia__mod": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".inMedia__mod": {
+    "comments": [],
+    "declarations": [
       "color: yellow;",
     ],
-    "position": Object {
+    "position": {
       "column": 9,
       "line": 77,
     },
   },
-  ".pulse": Object {
-    "comments": Array [
+  ".pulse": {
+    "comments": [
       "mixins",
     ],
-    "declarations": Array [],
-    "position": Object {
+    "declarations": [],
+    "position": {
       "column": 1,
       "line": 35,
     },
@@ -493,26 +493,26 @@ Object {
 `;
 
 exports[`filePathToClassnameDict SCSS gets a dictionary of nested classnames for \`"dashes"\` setting 1`] = `
-Object {
-  ".accordion": Object {
-    "comments": Array [
+{
+  ".accordion": {
+    "comments": [
       "parent selectors",
     ],
-    "declarations": Array [
+    "declarations": [
       "max-width: 600px;",
       "margin: 4rem auto;",
       "width: 90%;",
-      "font-family: \\"Raleway\\", sans-serif;",
+      "font-family: "Raleway", sans-serif;",
       "background: #f4f4f4;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 69,
     },
   },
-  ".accordion__copy": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".accordion__copy": {
+    "comments": [],
+    "declarations": [
       "display: none;",
       "padding: 1rem 1.5rem 2rem 1.5rem;",
       "color: gray;",
@@ -520,77 +520,77 @@ Object {
       "font-size: 14px;",
       "font-weight: 500;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 76,
     },
   },
-  ".accordion__copyOpen": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".accordion__copyOpen": {
+    "comments": [],
+    "declarations": [
       "display: block;",
     ],
-    "position": Object {
+    "position": {
       "column": 9,
       "line": 84,
     },
   },
-  ".accordion__sm": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".accordion__sm": {
+    "comments": [],
+    "declarations": [
       "width: 100%;",
     ],
-    "position": Object {
+    "position": {
       "column": 9,
       "line": 90,
     },
   },
-  ".accordion__smShrink": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".accordion__smShrink": {
+    "comments": [],
+    "declarations": [
       "width: 80%;",
     ],
-    "position": Object {
+    "position": {
       "column": 13,
       "line": 93,
     },
   },
-  ".alert": Object {
-    "comments": Array [
+  ".alert": {
+    "comments": [
       "variables",
     ],
-    "declarations": Array [
+    "declarations": [
       "border: 1px solid $border-dark;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 58,
     },
   },
-  ".inMedia": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".inMedia": {
+    "comments": [],
+    "declarations": [
       "color: hotpink;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 101,
     },
   },
-  ".inMedia__mod": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".inMedia__mod": {
+    "comments": [],
+    "declarations": [
       "color: yellow;",
     ],
-    "position": Object {
+    "position": {
       "column": 9,
       "line": 104,
     },
   },
-  ".pulse": Object {
-    "comments": Array [],
-    "declarations": Array [],
-    "position": Object {
+  ".pulse": {
+    "comments": [],
+    "declarations": [],
+    "position": {
       "column": 1,
       "line": 46,
     },
@@ -599,26 +599,26 @@ Object {
 `;
 
 exports[`filePathToClassnameDict SCSS gets a dictionary of nested classnames for \`false\` setting 1`] = `
-Object {
-  ".accordion": Object {
-    "comments": Array [
+{
+  ".accordion": {
+    "comments": [
       "parent selectors",
     ],
-    "declarations": Array [
+    "declarations": [
       "max-width: 600px;",
       "margin: 4rem auto;",
       "width: 90%;",
-      "font-family: \\"Raleway\\", sans-serif;",
+      "font-family: "Raleway", sans-serif;",
       "background: #f4f4f4;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 69,
     },
   },
-  ".accordion__copy": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".accordion__copy": {
+    "comments": [],
+    "declarations": [
       "display: none;",
       "padding: 1rem 1.5rem 2rem 1.5rem;",
       "color: gray;",
@@ -626,77 +626,77 @@ Object {
       "font-size: 14px;",
       "font-weight: 500;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 76,
     },
   },
-  ".accordion__copy--open": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".accordion__copy--open": {
+    "comments": [],
+    "declarations": [
       "display: block;",
     ],
-    "position": Object {
+    "position": {
       "column": 9,
       "line": 84,
     },
   },
-  ".accordion__sm": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".accordion__sm": {
+    "comments": [],
+    "declarations": [
       "width: 100%;",
     ],
-    "position": Object {
+    "position": {
       "column": 9,
       "line": 90,
     },
   },
-  ".accordion__sm--shrink": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".accordion__sm--shrink": {
+    "comments": [],
+    "declarations": [
       "width: 80%;",
     ],
-    "position": Object {
+    "position": {
       "column": 13,
       "line": 93,
     },
   },
-  ".alert": Object {
-    "comments": Array [
+  ".alert": {
+    "comments": [
       "variables",
     ],
-    "declarations": Array [
+    "declarations": [
       "border: 1px solid $border-dark;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 58,
     },
   },
-  ".inMedia": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".inMedia": {
+    "comments": [],
+    "declarations": [
       "color: hotpink;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 101,
     },
   },
-  ".inMedia__mod": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".inMedia__mod": {
+    "comments": [],
+    "declarations": [
       "color: yellow;",
     ],
-    "position": Object {
+    "position": {
       "column": 9,
       "line": 104,
     },
   },
-  ".pulse": Object {
-    "comments": Array [],
-    "declarations": Array [],
-    "position": Object {
+  ".pulse": {
+    "comments": [],
+    "declarations": [],
+    "position": {
       "column": 1,
       "line": 46,
     },
@@ -705,26 +705,26 @@ Object {
 `;
 
 exports[`filePathToClassnameDict SCSS gets a dictionary of nested classnames for \`true\` setting 1`] = `
-Object {
-  ".accordion": Object {
-    "comments": Array [
+{
+  ".accordion": {
+    "comments": [
       "parent selectors",
     ],
-    "declarations": Array [
+    "declarations": [
       "max-width: 600px;",
       "margin: 4rem auto;",
       "width: 90%;",
-      "font-family: \\"Raleway\\", sans-serif;",
+      "font-family: "Raleway", sans-serif;",
       "background: #f4f4f4;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 69,
     },
   },
-  ".accordionCopy": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".accordionCopy": {
+    "comments": [],
+    "declarations": [
       "display: none;",
       "padding: 1rem 1.5rem 2rem 1.5rem;",
       "color: gray;",
@@ -732,77 +732,77 @@ Object {
       "font-size: 14px;",
       "font-weight: 500;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 76,
     },
   },
-  ".accordionCopyOpen": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".accordionCopyOpen": {
+    "comments": [],
+    "declarations": [
       "display: block;",
     ],
-    "position": Object {
+    "position": {
       "column": 9,
       "line": 84,
     },
   },
-  ".accordionSm": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".accordionSm": {
+    "comments": [],
+    "declarations": [
       "width: 100%;",
     ],
-    "position": Object {
+    "position": {
       "column": 9,
       "line": 90,
     },
   },
-  ".accordionSmShrink": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".accordionSmShrink": {
+    "comments": [],
+    "declarations": [
       "width: 80%;",
     ],
-    "position": Object {
+    "position": {
       "column": 13,
       "line": 93,
     },
   },
-  ".alert": Object {
-    "comments": Array [
+  ".alert": {
+    "comments": [
       "variables",
     ],
-    "declarations": Array [
+    "declarations": [
       "border: 1px solid $border-dark;",
     ],
-    "position": Object {
+    "position": {
       "column": 1,
       "line": 58,
     },
   },
-  ".inMedia": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".inMedia": {
+    "comments": [],
+    "declarations": [
       "color: hotpink;",
     ],
-    "position": Object {
+    "position": {
       "column": 5,
       "line": 101,
     },
   },
-  ".inMediaMod": Object {
-    "comments": Array [],
-    "declarations": Array [
+  ".inMediaMod": {
+    "comments": [],
+    "declarations": [
       "color: yellow;",
     ],
-    "position": Object {
+    "position": {
       "column": 9,
       "line": 104,
     },
   },
-  ".pulse": Object {
-    "comments": Array [],
-    "declarations": Array [],
-    "position": Object {
+  ".pulse": {
+    "comments": [],
+    "declarations": [],
+    "position": {
       "column": 1,
       "line": 46,
     },
