@@ -3,6 +3,7 @@ import {DocumentUri} from 'vscode-languageserver-textdocument';
 import path from 'path';
 import {EOL} from 'os';
 import fs from 'fs';
+import url from 'url';
 import _camelCase from 'lodash.camelcase';
 
 import postcss from 'postcss';
@@ -11,7 +12,8 @@ import type {Node, Parser, ProcessOptions, Comment} from 'postcss';
 import {resolveAliasedImport} from './utils/resolveAliasedImport';
 
 export function getCurrentDirFromUri(uri: DocumentUri) {
-    return path.dirname(uri).replace(/^file:\/\//, '');
+    const filePath = url.fileURLToPath(uri);
+    return path.dirname(filePath);
 }
 
 export type CamelCaseValues = false | true | 'dashes';
