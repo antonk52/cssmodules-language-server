@@ -1,5 +1,5 @@
-import {lilconfigSync} from 'lilconfig';
 import {existsSync} from 'fs';
+import {lilconfigSync} from 'lilconfig';
 import {resolveAliasedImport} from '../utils/resolveAliasedImport';
 
 jest.mock('lilconfig', () => ({

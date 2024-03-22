@@ -1,15 +1,15 @@
 import {EOL} from 'os';
-import {Position, CompletionItem} from 'vscode-languageserver-protocol';
+import {CompletionItem, type Position} from 'vscode-languageserver-protocol';
+import type {TextDocument} from 'vscode-languageserver-textdocument';
 import * as lsp from 'vscode-languageserver/node';
-import {TextDocument} from 'vscode-languageserver-textdocument';
+import {textDocuments} from './textDocuments';
 import {
     findImportPath,
     getAllClassNames,
     getCurrentDirFromUri,
     getTransformer,
 } from './utils';
-import {textDocuments} from './textDocuments';
-import {CamelCaseValues} from './utils';
+import type {CamelCaseValues} from './utils';
 
 // check if current character or last character is .
 function isTrigger(line: string, position: Position): boolean {

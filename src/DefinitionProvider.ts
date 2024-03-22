@@ -1,11 +1,17 @@
-import path from 'path';
 import {EOL} from 'os';
-import {Hover, Location, Position, Range} from 'vscode-languageserver-protocol';
-import {TextDocument} from 'vscode-languageserver-textdocument';
-import * as lsp from 'vscode-languageserver/node';
+import path from 'path';
 import {
-    CamelCaseValues,
-    Classname,
+    type Hover,
+    Location,
+    Position,
+    Range,
+} from 'vscode-languageserver-protocol';
+import type {TextDocument} from 'vscode-languageserver-textdocument';
+import type * as lsp from 'vscode-languageserver/node';
+import {textDocuments} from './textDocuments';
+import {
+    type CamelCaseValues,
+    type Classname,
     filePathToClassnameDict,
     findImportPath,
     genImportRegExp,
@@ -16,7 +22,6 @@ import {
     isImportLineMatch,
     stringiyClassname,
 } from './utils';
-import {textDocuments} from './textDocuments';
 
 export class CSSModulesDefinitionProvider {
     _camelCaseConfig: CamelCaseValues;
@@ -76,7 +81,7 @@ export class CSSModulesDefinitionProvider {
             getTransformer(this._camelCaseConfig),
         );
 
-        const node: void | Classname = dict[`.${field}`];
+        const node: undefined | Classname = dict[`.${field}`];
 
         if (!node) return null;
 
@@ -137,12 +142,11 @@ export class CSSModulesDefinitionProvider {
 
         if (targetPosition === null) {
             return null;
-        } else {
-            const targetRange: Range = {
-                start: targetPosition,
-                end: targetPosition,
-            };
-            return Location.create(`file://${importPath}`, targetRange);
         }
+        const targetRange: Range = {
+            start: targetPosition,
+            end: targetPosition,
+        };
+        return Location.create(`file://${importPath}`, targetRange);
     }
 }

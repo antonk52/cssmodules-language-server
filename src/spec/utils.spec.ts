@@ -1,9 +1,9 @@
+import * as path from 'path';
 import {
     filePathToClassnameDict,
     findImportPath,
     getTransformer,
 } from '../utils';
-import * as path from 'path';
 
 describe('filePathToClassnameDict', () => {
     describe('CSS', () => {
@@ -171,9 +171,9 @@ describe('getTransformer', () => {
             expect(result).toEqual(expected);
         });
         it('emojis stay the same', () => {
-            const input = '.✌️';
+            const input = '.✌';
             const result = transformer(input);
-            const expected = '.✌️';
+            const expected = '.✌';
 
             expect(result).toEqual(expected);
         });
@@ -188,9 +188,9 @@ describe('getTransformer', () => {
             expect(result).toEqual(expected);
         });
         it('emojis stay the same', () => {
-            const input = '.✌️';
+            const input = '.✌';
             const result = transformer(input);
-            const expected = '.✌️';
+            const expected = '.✌';
 
             expect(result).toEqual(expected);
         });
@@ -205,7 +205,7 @@ describe('getTransformer', () => {
             expect(result).toEqual(input);
         });
         it('emojis stay the same', () => {
-            const input = '.✌️';
+            const input = '.✌';
             const result = transformer(input);
 
             expect(result).toEqual(input);
