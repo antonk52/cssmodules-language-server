@@ -285,7 +285,7 @@ export async function filePathToClassnameDict(
             continue;
         }
         if (node.type === 'atrule') {
-            if (node.name.toLowerCase() === 'media') {
+            if (node.name.toLowerCase() === 'media' && node.nodes) {
                 stack.unshift(...node.nodes);
             }
             commentStack = [];
