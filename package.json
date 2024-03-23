@@ -9,7 +9,7 @@
     "clean": "rimraf lib *.tsbuildinfo",
     "build": "tsc",
     "watch": "tsc --watch",
-    "lint": "biome check ./src biome.json jest.config.js",
+    "lint": "biome check ./src biome.json",
     "test": "vitest --run",
     "preversion": "npm-run-all clean build lint test",
     "postversion": "npm publish && git push --follow-tags"
