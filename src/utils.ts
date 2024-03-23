@@ -1,13 +1,13 @@
-import {Position} from 'vscode-languageserver-protocol';
-import {DocumentUri} from 'vscode-languageserver-textdocument';
-import path from 'path';
-import {EOL} from 'os';
 import fs from 'fs';
+import {EOL} from 'os';
+import path from 'path';
 import url from 'url';
 import _camelCase from 'lodash.camelcase';
+import {Position} from 'vscode-languageserver-protocol';
+import type {DocumentUri} from 'vscode-languageserver-textdocument';
 
 import postcss from 'postcss';
-import type {Node, Parser, ProcessOptions, Comment} from 'postcss';
+import type {Comment, Node, Parser, ProcessOptions} from 'postcss';
 
 import {resolveAliasedImport} from './utils/resolveAliasedImport';
 
@@ -161,7 +161,7 @@ export const log = (...args: unknown[]) => {
     const timestamp = new Date().toLocaleTimeString('en-GB', {hour12: false});
     const msg = args
         .map(x =>
-            typeof x === 'object' ? '\n' + JSON.stringify(x, null, 2) : x,
+            typeof x === 'object' ? `\n${JSON.stringify(x, null, 2)}` : x,
         )
         .join('\n\t');
 
@@ -249,7 +249,7 @@ export async function filePathToClassnameDict(
     /**
      * only load the parses once they are needed
      */
-    const parsers: Record<string, void | LazyLoadPostcssParser> = {
+    const parsers: Record<string, undefined | LazyLoadPostcssParser> = {
         '.less': () => require('postcss-less'),
         '.scss': () => require('postcss-scss'),
         '.sass': () => require('postcss-sass'),
@@ -285,7 +285,7 @@ export async function filePathToClassnameDict(
             continue;
         }
         if (node.type === 'atrule') {
-            if (node.name.toLowerCase() === 'media') {
+            if (node.name.toLowerCase() === 'media' && node.nodes) {
                 stack.unshift(...node.nodes);
             }
             commentStack = [];
@@ -343,34 +343,33 @@ export async function filePathToClassnameDict(
                     finsihedSel => finsihedSel.match(classNameRe),
                 );
 
-                finishedSelectorsAndClassNames.forEach(
-                    fscl =>
-                        fscl?.forEach(classname => {
-                            if (classname in dict) return;
-                            if (node.source === undefined) return;
+                finishedSelectorsAndClassNames.forEach(fscl =>
+                    fscl?.forEach(classname => {
+                        if (classname in dict) return;
+                        if (node.source === undefined) return;
 
-                            const column = node.source.start?.column || 0;
-                            const line = node.source.start?.line || 0;
+                        const column = node.source.start?.column || 0;
+                        const line = node.source.start?.line || 0;
 
-                            // TODO: refine location to specific line by the classname's last characters
-                            dict[classnameTransformer(classname)] = {
-                                declarations: node.nodes.reduce<string[]>(
-                                    (acc, x) => {
-                                        if (x.type === 'decl') {
-                                            acc.push(`${x.prop}: ${x.value};`);
-                                        }
-                                        return acc;
-                                    },
-                                    [],
-                                ),
-                                position: {
-                                    column: column,
-                                    line: line,
+                        // TODO: refine location to specific line by the classname's last characters
+                        dict[classnameTransformer(classname)] = {
+                            declarations: node.nodes.reduce<string[]>(
+                                (acc, x) => {
+                                    if (x.type === 'decl') {
+                                        acc.push(`${x.prop}: ${x.value};`);
+                                    }
+                                    return acc;
                                 },
-                                comments: commentStack.map(x => x.text),
-                            };
-                            commentStack = [];
-                        }),
+                                [],
+                            ),
+                            position: {
+                                column: column,
+                                line: line,
+                            },
+                            comments: commentStack.map(x => x.text),
+                        };
+                        commentStack = [];
+                    }),
                 );
 
                 visitedNodes.set(node, {selectors: finishedSelectors});
@@ -413,13 +412,12 @@ export function stringiyClassname(
                   const lines = x.split(EOL);
                   if (lines.length < 2) {
                       return `/*${x} */`;
-                  } else {
-                      return [
-                          `/*${lines[0]}`,
-                          ...lines.slice(1).map(y => ` ${y.trimStart()}`),
-                          ' */',
-                      ].join(EOL);
                   }
+                  return [
+                      `/*${lines[0]}`,
+                      ...lines.slice(1).map(y => ` ${y.trimStart()}`),
+                      ' */',
+                  ].join(EOL);
               })
               .join(EOL) + EOL
         : '';

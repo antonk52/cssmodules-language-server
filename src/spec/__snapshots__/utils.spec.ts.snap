@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`filePathToClassnameDict CSS gets a dictionary of classnames and their location 1`] = `
+exports[`filePathToClassnameDict > CSS > gets a dictionary of classnames and their location 1`] = `
 {
   ".block--element__mod": {
     "comments": [],
@@ -95,7 +95,7 @@ exports[`filePathToClassnameDict CSS gets a dictionary of classnames and their l
 }
 `;
 
-exports[`filePathToClassnameDict CSS gets a dictionary of nested classnames 1`] = `
+exports[`filePathToClassnameDict > CSS > gets a dictionary of nested classnames 1`] = `
 {
   ".child": {
     "comments": [],
@@ -190,7 +190,7 @@ exports[`filePathToClassnameDict CSS gets a dictionary of nested classnames 1`] 
 }
 `;
 
-exports[`filePathToClassnameDict LESS gets a dictionary of nested classnames from less files 1`] = `
+exports[`filePathToClassnameDict > LESS > gets a dictionary of nested classnames from less files 1`] = `
 {
   ".button": {
     "comments": [],
@@ -404,7 +404,7 @@ exports[`filePathToClassnameDict LESS gets a dictionary of nested classnames fro
 }
 `;
 
-exports[`filePathToClassnameDict SASS gets a dictionary of nested classnames 1`] = `
+exports[`filePathToClassnameDict > SASS > gets a dictionary of nested classnames 1`] = `
 {
   ".accordion": {
     "comments": [
@@ -492,7 +492,7 @@ exports[`filePathToClassnameDict SASS gets a dictionary of nested classnames 1`]
 }
 `;
 
-exports[`filePathToClassnameDict SCSS gets a dictionary of nested classnames for \`"dashes"\` setting 1`] = `
+exports[`filePathToClassnameDict > SCSS > gets a dictionary of nested classnames for \`"dashes"\` setting 1`] = `
 {
   ".accordion": {
     "comments": [
@@ -598,7 +598,7 @@ exports[`filePathToClassnameDict SCSS gets a dictionary of nested classnames for
 }
 `;
 
-exports[`filePathToClassnameDict SCSS gets a dictionary of nested classnames for \`false\` setting 1`] = `
+exports[`filePathToClassnameDict > SCSS > gets a dictionary of nested classnames for \`false\` setting 1`] = `
 {
   ".accordion": {
     "comments": [
@@ -704,7 +704,7 @@ exports[`filePathToClassnameDict SCSS gets a dictionary of nested classnames for
 }
 `;
 
-exports[`filePathToClassnameDict SCSS gets a dictionary of nested classnames for \`true\` setting 1`] = `
+exports[`filePathToClassnameDict > SCSS > gets a dictionary of nested classnames for \`true\` setting 1`] = `
 {
   ".accordion": {
     "comments": [

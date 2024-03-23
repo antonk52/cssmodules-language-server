@@ -1,18 +1,34 @@
-import {lilconfigSync} from 'lilconfig';
 import {existsSync} from 'fs';
+import {lilconfigSync} from 'lilconfig';
+import {type Mock, describe, expect, it, vi} from 'vitest';
 import {resolveAliasedImport} from '../utils/resolveAliasedImport';
 
-jest.mock('lilconfig', () => ({
-    lilconfigSync: jest.fn(),
-}));
+vi.mock('lilconfig', async () => {
+    const actual: typeof import('lilconfig') =
+        await vi.importActual('lilconfig');
+    return {
+        ...actual,
+        lilconfigSync: vi.fn(),
+    };
+});
 
-jest.mock('fs', () => ({
-    existsSync: jest.fn(),
-}));
+vi.mock('fs', async () => {
+    const actual: typeof import('fs') = await vi.importActual('fs');
+    const existsSync = vi.fn();
+    return {
+        ...actual,
+        existsSync,
+        default: {
+            // @ts-ignore
+            ...actual.default,
+            existsSync,
+        },
+    };
+});
 
 describe('utils: resolveAliaedFilepath', () => {
     it('returns null if config does not exist', () => {
-        (lilconfigSync as jest.Mock).mockReturnValueOnce({
+        (lilconfigSync as Mock).mockReturnValueOnce({
             search: () => null,
         });
         const result = resolveAliasedImport({
@@ -25,7 +41,7 @@ describe('utils: resolveAliaedFilepath', () => {
     });
 
     it('returns null when baseUrl is not set in the config', () => {
-        (lilconfigSync as jest.Mock).mockReturnValueOnce({
+        (lilconfigSync as Mock).mockReturnValueOnce({
             search: () => ({
                 config: {
                     compilerOptions: {
@@ -46,7 +62,7 @@ describe('utils: resolveAliaedFilepath', () => {
     });
 
     it('returns null when "paths" is not set in the config and path does not match', () => {
-        (lilconfigSync as jest.Mock).mockReturnValueOnce({
+        (lilconfigSync as Mock).mockReturnValueOnce({
             search: () => ({
                 config: {
                     compilerOptions: {
@@ -57,7 +73,7 @@ describe('utils: resolveAliaedFilepath', () => {
                 filepath: '/path/to/config',
             }),
         });
-        (existsSync as jest.Mock).mockReturnValue(false);
+        (existsSync as Mock).mockReturnValue(false);
         const result = resolveAliasedImport({
             location: '',
             importFilepath: '',
@@ -68,7 +84,7 @@ describe('utils: resolveAliaedFilepath', () => {
     });
 
     it('returns resolved filepath when "paths" is not set in the config, and file exists', () => {
-        (lilconfigSync as jest.Mock).mockReturnValueOnce({
+        (lilconfigSync as Mock).mockReturnValueOnce({
             search: () => ({
                 config: {
                     compilerOptions: {
@@ -79,7 +95,7 @@ describe('utils: resolveAliaedFilepath', () => {
                 filepath: '/path/to/tsconfig.json',
             }),
         });
-        (existsSync as jest.Mock).mockReturnValue(true);
+        (existsSync as Mock).mockReturnValue(true);
         const result = resolveAliasedImport({
             location: '',
             importFilepath: 'src/styles/file.css',
@@ -90,7 +106,7 @@ describe('utils: resolveAliaedFilepath', () => {
     });
 
     it('returns baseUrl-mapped path when no alias matched import path', () => {
-        (lilconfigSync as jest.Mock).mockReturnValueOnce({
+        (lilconfigSync as Mock).mockReturnValueOnce({
             search: () => ({
                 config: {
                     compilerOptions: {
@@ -113,7 +129,7 @@ describe('utils: resolveAliaedFilepath', () => {
     });
 
     it('returns null when no files matching alias were found', () => {
-        (lilconfigSync as jest.Mock).mockReturnValueOnce({
+        (lilconfigSync as Mock).mockReturnValueOnce({
             search: () => ({
                 config: {
                     compilerOptions: {
@@ -126,7 +142,7 @@ describe('utils: resolveAliaedFilepath', () => {
                 filepath: '/path/to/config',
             }),
         });
-        (existsSync as jest.Mock).mockReturnValue(false);
+        (existsSync as Mock).mockReturnValue(false);
         const result = resolveAliasedImport({
             location: '',
             importFilepath: '@bar/file.css',
@@ -137,7 +153,7 @@ describe('utils: resolveAliaedFilepath', () => {
     });
 
     it('returns resolved filepath when matched alias file is found', () => {
-        (lilconfigSync as jest.Mock).mockReturnValueOnce({
+        (lilconfigSync as Mock).mockReturnValueOnce({
             search: () => ({
                 config: {
                     compilerOptions: {
@@ -150,7 +166,7 @@ describe('utils: resolveAliaedFilepath', () => {
                 filepath: '/path/to/tsconfig.json',
             }),
         });
-        (existsSync as jest.Mock).mockReturnValue(true);
+        (existsSync as Mock).mockReturnValue(true);
         const result = resolveAliasedImport({
             location: '',
             importFilepath: '@bar/file.css',
