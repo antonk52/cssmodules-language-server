@@ -1,6 +1,6 @@
 import {existsSync} from 'fs';
 import {lilconfigSync} from 'lilconfig';
-import {describe, expect, it, vi, Mock} from 'vitest';
+import {type Mock, describe, expect, it, vi} from 'vitest';
 import {resolveAliasedImport} from '../utils/resolveAliasedImport';
 
 vi.mock('lilconfig', async () => {

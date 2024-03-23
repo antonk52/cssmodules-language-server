@@ -10,6 +10,7 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "lint": "biome check ./src biome.json",
+    "format": "biome format --write ./src biome.json",
     "test": "vitest --run",
     "preversion": "npm-run-all clean build lint test",
     "postversion": "npm publish && git push --follow-tags"
