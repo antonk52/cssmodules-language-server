@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import JSON5 from 'json5';
 
 import {lilconfigSync} from 'lilconfig';
 
@@ -49,6 +50,11 @@ export const resolveAliasedImport = ({
 }): string | null => {
     const searcher = lilconfigSync('', {
         searchPlaces: ['tsconfig.json', 'jsconfig.json'],
+        loaders: {
+            '.json': function(filepath, content) {
+                return JSON5.parse(content);
+            }
+        }
     });
     const config = searcher.search(location);
 
