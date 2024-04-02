@@ -22,7 +22,7 @@ export function genImportRegExp(importName: string): RegExp {
     const file = '(.+\\.(styl|sass|scss|less|css))';
     const fromOrRequire = '(?:from\\s+|=\\s+require(?:<any>)?\\()';
     const requireEndOptional = '\\)?';
-    const pattern = `${importName}\\s+${fromOrRequire}["']${file}["']${requireEndOptional}`;
+    const pattern = `\\b${importName}\\s+${fromOrRequire}["']${file}["']${requireEndOptional}`;
 
     return new RegExp(pattern);
 }
