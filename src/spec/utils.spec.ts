@@ -112,7 +112,8 @@ import sCss from './styles.scss'
 import sass from './styles.sass'
 import styl from './styles.styl'
 
-import aliasedCss from '@spec-styles/regular.css'
+import aliasedRegularCss from '@spec-styles/regular.css'
+import aliasedNestedSass from '@spec-styles/nested.sass'
 
 const rCss = require('./style.css')
 const rStyle = require('./style.css')
@@ -150,14 +151,17 @@ describe('findImportPath', () => {
         }),
     );
 
-    it('resolves aliased paths', () => {
-        const dirPath = path.join(__dirname, 'styles');
-        const importName = 'aliasedCss';
-        const expected = path.join(dirPath, 'regular.css');
+    const realDirPath = path.join(__dirname, 'styles');
 
-        const result = findImportPath(fileContent, importName, dirPath);
-        expect(result).toBe(expected);
-    })
+    [
+        ['aliasedRegularCss', path.join(realDirPath, 'regular.css')],
+        ['aliasedNestedSass', path.join(realDirPath, 'nested.sass')],
+    ].forEach(([importName, expected]) => {
+        it(`resolves aliased import path for ${importName}`, () => {
+            const result = findImportPath(fileContent, importName, realDirPath);
+            expect(result).toBe(expected);
+        })
+    });
 
     it('returns an empty string when there is no import', () => {
         const simpleComponentFile = [
