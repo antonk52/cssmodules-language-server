@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      // @spec-styles points to this directory:
+      "@spec-styles/*": [
+        "*"
+      ]
+    }
+  }
+}
