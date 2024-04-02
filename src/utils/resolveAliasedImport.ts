@@ -51,10 +51,8 @@ export const resolveAliasedImport = ({
     const searcher = lilconfigSync('', {
         searchPlaces: ['tsconfig.json', 'jsconfig.json'],
         loaders: {
-            '.json': function(filepath, content) {
-                return JSON5.parse(content);
-            }
-        }
+            '.json': (_, content) => JSON5.parse(content),
+        },
     });
     const config = searcher.search(location);
 

@@ -1,11 +1,9 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      // @spec-styles points to this directory:
-      "@spec-styles/*": [
-        "*"
-      ]
-    }
-  }
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			// @spec-styles points to this directory:
+			"@spec-styles/*": ["*"]
+		}
+	}
 }

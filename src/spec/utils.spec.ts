@@ -160,7 +160,7 @@ describe('findImportPath', () => {
         it(`resolves aliased import path for ${importName}`, () => {
             const result = findImportPath(fileContent, importName, realDirPath);
             expect(result).toBe(expected);
-        })
+        });
     });
 
     it('returns an empty string when there is no import', () => {
