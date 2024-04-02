@@ -112,6 +112,8 @@ import sCss from './styles.scss'
 import sass from './styles.sass'
 import styl from './styles.styl'
 
+import aliasedCss from '@spec-styles/regular.css'
+
 const rCss = require('./style.css')
 const rStyle = require('./style.css')
 const rStyles = require('./styles.css')
@@ -147,6 +149,15 @@ describe('findImportPath', () => {
             expect(result).toBe(expected);
         }),
     );
+
+    it('resolves aliased paths', () => {
+        const dirPath = path.join(__dirname, 'styles');
+        const importName = 'aliasedCss';
+        const expected = path.join(dirPath, 'regular.css');
+
+        const result = findImportPath(fileContent, importName, dirPath);
+        expect(result).toBe(expected);
+    })
 
     it('returns an empty string when there is no import', () => {
         const simpleComponentFile = [
