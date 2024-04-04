@@ -86,8 +86,7 @@ export function getTransformer(
                     firstLetter.toUpperCase(),
                 );
         default:
-            return str =>
-                str.includes('-') ? `.['${str.substring(1)}']` : str;
+            return x => x;
     }
 }
 
@@ -134,6 +133,7 @@ export function getWords(line: string, position: Position): [string, string] {
     const startIndex = headText.search(/[a-z0-9\._]*$/i);
     // not found or not clicking object field
     if (startIndex === -1 || headText.slice(startIndex).indexOf('.') === -1) {
+        // check if this is a subscript expression instead
         const startIndex = headText.search(/[a-z0-9'_\[\-]*$/i);
         if (
             startIndex === -1 ||
@@ -147,8 +147,13 @@ export function getWords(line: string, position: Position): [string, string] {
             return ['', ''];
         }
 
-        const [a, b] = match[1].split('[');
-        return [a, `[${b}]`] as [string, string];
+        const [styles, className] = match[1].split('[');
+
+        // remove wrapping quotes around class name (both `'` or `"`)
+        return [styles, className.substring(1, className.length - 1)] as [
+            string,
+            string,
+        ];
     }
 
     const match = /^([a-z0-9\._]*)/i.exec(line.slice(startIndex));
@@ -416,7 +421,7 @@ export async function getAllClassNames(
         : classList;
 }
 
-export function stringiyClassname(
+export function stringifyClassname(
     classname: string,
     declarations: string[],
     comments: string[],

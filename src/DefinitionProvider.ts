@@ -20,7 +20,7 @@ import {
     getTransformer,
     getWords,
     isImportLineMatch,
-    stringiyClassname,
+    stringifyClassname,
 } from './utils';
 
 export class CSSModulesDefinitionProvider {
@@ -87,7 +87,7 @@ export class CSSModulesDefinitionProvider {
         return {
             contents: {
                 language: 'css',
-                value: stringiyClassname(
+                value: stringifyClassname(
                     field,
                     node.declarations,
                     node.comments,
