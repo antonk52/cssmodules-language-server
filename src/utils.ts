@@ -86,7 +86,8 @@ export function getTransformer(
                     firstLetter.toUpperCase(),
                 );
         default:
-            return x => x;
+            return str =>
+                str.includes('-') ? `.['${str.substring(1)}']` : str;
     }
 }
 
@@ -128,20 +129,34 @@ export async function getPosition(
         : null;
 }
 
-export function getWords(line: string, position: Position): string {
+export function getWords(line: string, position: Position): [string, string] {
     const headText = line.slice(0, position.character);
     const startIndex = headText.search(/[a-z0-9\._]*$/i);
     // not found or not clicking object field
     if (startIndex === -1 || headText.slice(startIndex).indexOf('.') === -1) {
-        return '';
+        const startIndex = headText.search(/[a-z0-9'_\[\-]*$/i);
+        if (
+            startIndex === -1 ||
+            headText.slice(startIndex).indexOf('[') === -1
+        ) {
+            return ['', ''];
+        }
+
+        const match = /^([a-z0-9_\-\[']*)/i.exec(line.slice(startIndex));
+        if (match === null) {
+            return ['', ''];
+        }
+
+        const [a, b] = match[1].split('[');
+        return [a, `[${b}]`] as [string, string];
     }
 
     const match = /^([a-z0-9\._]*)/i.exec(line.slice(startIndex));
     if (match === null) {
-        return '';
+        return ['', ''];
     }
 
-    return match[1];
+    return match[1].split('.') as [string, string];
 }
 
 type ClassnamePostion = {

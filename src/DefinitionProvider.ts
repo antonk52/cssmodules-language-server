@@ -65,12 +65,11 @@ export class CSSModulesDefinitionProvider {
         }
         const currentDir = getCurrentDirFromUri(textdocument.uri);
 
-        const words = getWords(currentLine, position);
-        if (words === '' || words.indexOf('.') === -1) {
+        const [obj, field] = getWords(currentLine, position);
+        if (obj === '') {
             return null;
         }
 
-        const [obj, field] = words.split('.');
         const importPath = findImportPath(fileContent, obj, currentDir);
         if (importPath === '') {
             return null;
@@ -123,12 +122,11 @@ export class CSSModulesDefinitionProvider {
             return Location.create(filePath, targetRange);
         }
 
-        const words = getWords(currentLine, position);
-        if (words === '' || words.indexOf('.') === -1) {
+        const [obj, field] = getWords(currentLine, position);
+        if (obj === '') {
             return null;
         }
 
-        const [obj, field] = words.split('.');
         const importPath = findImportPath(fileContent, obj, currentDir);
         if (importPath === '') {
             return null;
