@@ -137,7 +137,7 @@ export function getWords(
     // not found or not clicking object field
     if (startIndex === -1 || headText.slice(startIndex).indexOf('.') === -1) {
         // check if this is a subscript expression instead
-        const startIndex = headText.search(/[a-z0-9'_\[\-]*$/i);
+        const startIndex = headText.search(/[a-z0-9"'_\[\-]*$/i);
         if (
             startIndex === -1 ||
             headText.slice(startIndex).indexOf('[') === -1
@@ -145,7 +145,7 @@ export function getWords(
             return null;
         }
 
-        const match = /^([a-z0-9_\-\[']*)/i.exec(line.slice(startIndex));
+        const match = /^([a-z0-9_\-\['"]*)/i.exec(line.slice(startIndex));
         if (match === null) {
             return null;
         }
@@ -153,10 +153,9 @@ export function getWords(
         const [styles, className] = match[1].split('[');
 
         // remove wrapping quotes around class name (both `'` or `"`)
-        return [styles, className.substring(1, className.length - 1)] as [
-            string,
-            string,
-        ];
+        const unwrappedName = className.substring(1, className.length - 1);
+
+        return [styles, unwrappedName] as [string, string];
     }
 
     const match = /^([a-z0-9\._]*)/i.exec(line.slice(startIndex));
