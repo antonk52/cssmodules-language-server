@@ -65,10 +65,12 @@ export class CSSModulesDefinitionProvider {
         }
         const currentDir = getCurrentDirFromUri(textdocument.uri);
 
-        const [obj, field] = getWords(currentLine, position);
-        if (obj === '') {
+        const words = getWords(currentLine, position);
+        if (words === null) {
             return null;
         }
+
+        const [obj, field] = words;
 
         const importPath = findImportPath(fileContent, obj, currentDir);
         if (importPath === '') {
@@ -122,10 +124,12 @@ export class CSSModulesDefinitionProvider {
             return Location.create(filePath, targetRange);
         }
 
-        const [obj, field] = getWords(currentLine, position);
-        if (obj === '') {
+        const words = getWords(currentLine, position);
+        if (words === null) {
             return null;
         }
+
+        const [obj, field] = words;
 
         const importPath = findImportPath(fileContent, obj, currentDir);
         if (importPath === '') {

@@ -128,7 +128,10 @@ export async function getPosition(
         : null;
 }
 
-export function getWords(line: string, position: Position): [string, string] {
+export function getWords(
+    line: string,
+    position: Position,
+): [string, string] | null {
     const headText = line.slice(0, position.character);
     const startIndex = headText.search(/[a-z0-9\._]*$/i);
     // not found or not clicking object field
@@ -139,12 +142,12 @@ export function getWords(line: string, position: Position): [string, string] {
             startIndex === -1 ||
             headText.slice(startIndex).indexOf('[') === -1
         ) {
-            return ['', ''];
+            return null;
         }
 
         const match = /^([a-z0-9_\-\[']*)/i.exec(line.slice(startIndex));
         if (match === null) {
-            return ['', ''];
+            return null;
         }
 
         const [styles, className] = match[1].split('[');
@@ -158,7 +161,7 @@ export function getWords(line: string, position: Position): [string, string] {
 
     const match = /^([a-z0-9\._]*)/i.exec(line.slice(startIndex));
     if (match === null) {
-        return ['', ''];
+        return null;
     }
 
     return match[1].split('.') as [string, string];
