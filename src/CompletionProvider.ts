@@ -159,9 +159,6 @@ export class CSSModulesCompletionProvider {
             const completionField =
                 trigger === '[' || nameIncludesDashes ? `['${name}']` : name;
 
-            // FIXME - avoid extra ] at the end - moliva - 2024/04/08
-            // FIXME - when adding quotes ' or " it won't suggest anything - moliva - 2024/04/08
-
             let completionItem: CompletionItem;
             // in case of items with dashes, we need to replace the `.` and suggest the field using the subscript expression `[`
             if (trigger === '.') {
