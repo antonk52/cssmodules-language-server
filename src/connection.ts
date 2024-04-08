@@ -1,6 +1,9 @@
 import * as lsp from 'vscode-languageserver/node';
 
-import {CSSModulesCompletionProvider} from './CompletionProvider';
+import {
+    COMPLETION_TRIGGERS,
+    CSSModulesCompletionProvider,
+} from './CompletionProvider';
 import {CSSModulesDefinitionProvider} from './DefinitionProvider';
 import {textDocuments} from './textDocuments';
 
@@ -42,9 +45,9 @@ export function createConnection(): lsp.Connection {
                 implementationProvider: true,
                 completionProvider: {
                     /**
-                     * only invoke completion once `.` is pressed
+                     * only invoke completion once `.` or `[` are pressed
                      */
-                    triggerCharacters: ['.'],
+                    triggerCharacters: COMPLETION_TRIGGERS.slice(),
                     resolveProvider: true,
                 },
             },
