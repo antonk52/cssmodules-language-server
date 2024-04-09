@@ -1,9 +1,11 @@
 import * as path from 'path';
 import {describe, expect, it} from 'vitest';
+import {Position} from 'vscode-languageserver-protocol';
 import {
     filePathToClassnameDict,
     findImportPath,
     getTransformer,
+    getWords,
 } from '../utils';
 
 describe('filePathToClassnameDict', () => {
@@ -226,5 +228,35 @@ describe('getTransformer', () => {
 
             expect(result).toEqual(input);
         });
+    });
+});
+describe('getWords', () => {
+    it('returns null for a line with no .', () => {
+        const line = 'nostyles';
+        const position = Position.create(0, 1);
+        const result = getWords(line, position);
+
+        expect(result).toEqual(null);
+    });
+    it('returns pair of obj and field for line with property accessor expression', () => {
+        const line = 'styles.myclass';
+        const position = Position.create(0, 'styles.'.length);
+        const result = getWords(line, position);
+
+        expect(result).toEqual(['styles', 'myclass']);
+    });
+    it('returns pair of obj and field for line with subscript accessor expression (single quoted)', () => {
+        const line = "styles['myclass']";
+        const position = Position.create(0, "styles['".length);
+        const result = getWords(line, position);
+
+        expect(result).toEqual(['styles', 'myclass']);
+    });
+    it('returns pair of obj and field for line with subscript accessor expression (double quoted)', () => {
+        const line = 'styles["myclass"]';
+        const position = Position.create(0, 'styles["'.length);
+        const result = getWords(line, position);
+
+        expect(result).toEqual(['styles', 'myclass']);
     });
 });

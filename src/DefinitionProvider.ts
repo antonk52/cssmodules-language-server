@@ -20,7 +20,7 @@ import {
     getTransformer,
     getWords,
     isImportLineMatch,
-    stringiyClassname,
+    stringifyClassname,
 } from './utils';
 
 export class CSSModulesDefinitionProvider {
@@ -66,11 +66,12 @@ export class CSSModulesDefinitionProvider {
         const currentDir = getCurrentDirFromUri(textdocument.uri);
 
         const words = getWords(currentLine, position);
-        if (words === '' || words.indexOf('.') === -1) {
+        if (words === null) {
             return null;
         }
 
-        const [obj, field] = words.split('.');
+        const [obj, field] = words;
+
         const importPath = findImportPath(fileContent, obj, currentDir);
         if (importPath === '') {
             return null;
@@ -88,7 +89,7 @@ export class CSSModulesDefinitionProvider {
         return {
             contents: {
                 language: 'css',
-                value: stringiyClassname(
+                value: stringifyClassname(
                     field,
                     node.declarations,
                     node.comments,
@@ -124,11 +125,12 @@ export class CSSModulesDefinitionProvider {
         }
 
         const words = getWords(currentLine, position);
-        if (words === '' || words.indexOf('.') === -1) {
+        if (words === null) {
             return null;
         }
 
-        const [obj, field] = words.split('.');
+        const [obj, field] = words;
+
         const importPath = findImportPath(fileContent, obj, currentDir);
         if (importPath === '') {
             return null;

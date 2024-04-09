@@ -26,7 +26,7 @@ vi.mock('fs', async () => {
     };
 });
 
-describe('utils: resolveAliaedFilepath', () => {
+describe('utils: resolveAliasedFilepath', () => {
     it('returns null if config does not exist', () => {
         (lilconfigSync as Mock).mockReturnValueOnce({
             search: () => null,

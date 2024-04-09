@@ -128,20 +128,42 @@ export async function getPosition(
         : null;
 }
 
-export function getWords(line: string, position: Position): string {
+export function getWords(
+    line: string,
+    position: Position,
+): [string, string] | null {
     const headText = line.slice(0, position.character);
     const startIndex = headText.search(/[a-z0-9\._]*$/i);
     // not found or not clicking object field
     if (startIndex === -1 || headText.slice(startIndex).indexOf('.') === -1) {
-        return '';
+        // check if this is a subscript expression instead
+        const startIndex = headText.search(/[a-z0-9"'_\[\-]*$/i);
+        if (
+            startIndex === -1 ||
+            headText.slice(startIndex).indexOf('[') === -1
+        ) {
+            return null;
+        }
+
+        const match = /^([a-z0-9_\-\['"]*)/i.exec(line.slice(startIndex));
+        if (match === null) {
+            return null;
+        }
+
+        const [styles, className] = match[1].split('[');
+
+        // remove wrapping quotes around class name (both `'` or `"`)
+        const unwrappedName = className.substring(1, className.length - 1);
+
+        return [styles, unwrappedName] as [string, string];
     }
 
     const match = /^([a-z0-9\._]*)/i.exec(line.slice(startIndex));
     if (match === null) {
-        return '';
+        return null;
     }
 
-    return match[1];
+    return match[1].split('.') as [string, string];
 }
 
 type ClassnamePostion = {
@@ -401,7 +423,7 @@ export async function getAllClassNames(
         : classList;
 }
 
-export function stringiyClassname(
+export function stringifyClassname(
     classname: string,
     declarations: string[],
     comments: string[],

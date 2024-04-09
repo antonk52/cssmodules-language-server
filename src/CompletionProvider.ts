@@ -83,7 +83,26 @@ export class CSSModulesCompletionProvider {
         const res = classNames.map(_class => {
             const name = this._classTransformer(_class);
 
-            return CompletionItem.create(name);
+            let completionItem: CompletionItem;
+
+            // in case of items with dashes, we need to replace the `.` and suggest the field using the subscript expression
+            if (name.includes('-')) {
+                const arrayAccessor = `['${name}']`;
+                const range = lsp.Range.create(
+                    lsp.Position.create(position.line, position.character - 1),
+                    position,
+                );
+
+                completionItem = CompletionItem.create(arrayAccessor);
+                completionItem.textEdit = lsp.InsertReplaceEdit.create(
+                    arrayAccessor,
+                    range,
+                    range,
+                );
+            } else {
+                completionItem = CompletionItem.create(name);
+            }
+            return completionItem;
         });
 
         return res.map((x, i) => ({
