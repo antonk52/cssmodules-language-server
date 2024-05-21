@@ -11,7 +11,7 @@ import {
 } from './utils';
 import type {CamelCaseValues} from './utils';
 
-export const COMPLETION_TRIGGERS = ['.', '[', '"', "'"] as const;
+export const COMPLETION_TRIGGERS = ['.', '[', '"', "'"];
 
 type FieldOptions = {
     wrappingBracket: boolean;

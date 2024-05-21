@@ -47,7 +47,7 @@ export function createConnection(): lsp.Connection {
                     /**
                      * only invoke completion once `.` or `[` are pressed
                      */
-                    triggerCharacters: COMPLETION_TRIGGERS.slice(),
+                    triggerCharacters: COMPLETION_TRIGGERS,
                     resolveProvider: true,
                 },
             },
