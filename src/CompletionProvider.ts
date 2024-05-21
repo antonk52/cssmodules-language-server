@@ -42,7 +42,6 @@ function findTrigger(line: string, position: Position): string | undefined {
 /**
  * Given the line, position and trigger, returns the identifier referencing the styles spreadsheet and the (partial) field selected with options to help construct the completion item later.
  *
- * @returns
  */
 function getWords(
     line: string,
@@ -66,7 +65,7 @@ function getWords(
         case '.':
             return words.split('.') as [string, string];
         // process `[` trigger
-        default: {
+        case '[': {
             const [obj, field] = words.split('[');
 
             let lineAhead = line.slice(position.character);
@@ -83,6 +82,9 @@ function getWords(
                 field.slice(startsWithQuote ? 1 : 0),
                 {wrappingBracket, startsWithQuote, endsWithQuote},
             ];
+        }
+        default: {
+          throw new Error(`Unsupported trigger character ${trigger}`);
         }
     }
 }
