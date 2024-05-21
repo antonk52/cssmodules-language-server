@@ -84,7 +84,7 @@ function getWords(
             ];
         }
         default: {
-          throw new Error(`Unsupported trigger character ${trigger}`);
+            throw new Error(`Unsupported trigger character ${trigger}`);
         }
     }
 }
