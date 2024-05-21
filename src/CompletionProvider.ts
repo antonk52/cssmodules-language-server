@@ -11,20 +11,138 @@ import {
 } from './utils';
 import type {CamelCaseValues} from './utils';
 
-// check if current character or last character is .
-function isTrigger(line: string, position: Position): boolean {
-    const i = position.character - 1;
-    return line[i] === '.' || (i > 1 && line[i - 1] === '.');
-}
+export const COMPLETION_TRIGGERS = ['.', '[', '"', "'"];
 
-function getWords(line: string, position: Position): string {
-    const text = line.slice(0, position.character);
-    const index = text.search(/[a-z0-9\._]*$/i);
-    if (index === -1) {
-        return '';
+type FieldOptions = {
+    wrappingBracket: boolean;
+    startsWithQuote: boolean;
+    endsWithQuote: boolean;
+};
+
+/**
+ * check if current character or last character is any of the completion triggers (i.e. `.`, `[`) and return it
+ *
+ * @see COMPLETION_TRIGGERS
+ */
+function findTrigger(line: string, position: Position): string | undefined {
+    const i = position.character - 1;
+
+    for (const trigger of COMPLETION_TRIGGERS) {
+        if (line[i] === trigger) {
+            return trigger;
+        }
+        if (i > 1 && line[i - 1] === trigger) {
+            return trigger;
+        }
     }
 
-    return text.slice(index);
+    return undefined;
+}
+
+/**
+ * Given the line, position and trigger, returns the identifier referencing the styles spreadsheet and the (partial) field selected with options to help construct the completion item later.
+ *
+ */
+function getWords(
+    line: string,
+    position: Position,
+    trigger: string,
+): [string, string, FieldOptions?] | undefined {
+    const text = line.slice(0, position.character);
+    const index = text.search(/[a-z0-9\._\[\]'"\-]*$/i);
+    if (index === -1) {
+        return undefined;
+    }
+
+    const words = text.slice(index);
+
+    if (words === '' || words.indexOf(trigger) === -1) {
+        return undefined;
+    }
+
+    switch (trigger) {
+        // process `.` trigger
+        case '.':
+            return words.split('.') as [string, string];
+        // process `[` trigger
+        case '[': {
+            const [obj, field] = words.split('[');
+
+            let lineAhead = line.slice(position.character);
+            const endsWithQuote = lineAhead.search(/^["']/) !== -1;
+
+            lineAhead = endsWithQuote ? lineAhead.slice(1) : lineAhead;
+            const wrappingBracket = lineAhead.search(/^\s*\]/) !== -1;
+
+            const startsWithQuote =
+                field.length > 0 && (field[0] === '"' || field[0] === "'");
+
+            return [
+                obj,
+                field.slice(startsWithQuote ? 1 : 0),
+                {wrappingBracket, startsWithQuote, endsWithQuote},
+            ];
+        }
+        default: {
+          throw new Error(`Unsupported trigger character ${trigger}`);
+        }
+    }
+}
+
+function createCompletionItem(
+    trigger: string,
+    name: string,
+    position: Position,
+    fieldOptions: FieldOptions | undefined,
+): CompletionItem {
+    const nameIncludesDashes = name.includes('-');
+    const completionField =
+        trigger === '[' || nameIncludesDashes ? `['${name}']` : name;
+
+    let completionItem: CompletionItem;
+    // in case of items with dashes, we need to replace the `.` and suggest the field using the subscript expression `[`
+    if (trigger === '.') {
+        if (nameIncludesDashes) {
+            const range = lsp.Range.create(
+                lsp.Position.create(position.line, position.character - 1), // replace the `.` character
+                position,
+            );
+
+            completionItem = CompletionItem.create(completionField);
+            completionItem.textEdit = lsp.InsertReplaceEdit.create(
+                completionField,
+                range,
+                range,
+            );
+        } else {
+            completionItem = CompletionItem.create(completionField);
+        }
+    } else {
+        // trigger === '['
+        const startPositionCharacter =
+            position.character -
+            1 - // replace the `[` character
+            (fieldOptions?.startsWithQuote ? 1 : 0); // replace the starting quote if present
+
+        const endPositionCharacter =
+            position.character +
+            (fieldOptions?.endsWithQuote ? 1 : 0) + // replace the ending quote if present
+            (fieldOptions?.wrappingBracket ? 1 : 0); // replace the wrapping bracket if present
+
+        const range = lsp.Range.create(
+            lsp.Position.create(position.line, startPositionCharacter),
+            lsp.Position.create(position.line, endPositionCharacter),
+        );
+
+        completionItem = CompletionItem.create(completionField);
+        completionItem.textEdit = lsp.InsertReplaceEdit.create(
+            completionField,
+            range,
+            range,
+        );
+    }
+
+    return completionItem;
 }
 
 export class CSSModulesCompletionProvider {
@@ -57,17 +175,17 @@ export class CSSModulesCompletionProvider {
         if (typeof currentLine !== 'string') return null;
         const currentDir = getCurrentDirFromUri(textdocument.uri);
 
-        if (!isTrigger(currentLine, position)) {
+        const trigger = findTrigger(currentLine, position);
+        if (!trigger) {
             return [];
         }
 
-        const words = getWords(currentLine, position);
-
-        if (words === '' || words.indexOf('.') === -1) {
+        const foundFields = getWords(currentLine, position, trigger);
+        if (!foundFields) {
             return [];
         }
 
-        const [obj, field] = words.split('.');
+        const [obj, field, fieldOptions] = foundFields;
 
         const importPath = findImportPath(fileContent, obj, currentDir);
         if (importPath === '') {
@@ -83,25 +201,13 @@ export class CSSModulesCompletionProvider {
         const res = classNames.map(_class => {
             const name = this._classTransformer(_class);
 
-            let completionItem: CompletionItem;
+            const completionItem = createCompletionItem(
+                trigger,
+                name,
+                position,
+                fieldOptions,
+            );
 
-            // in case of items with dashes, we need to replace the `.` and suggest the field using the subscript expression
-            if (name.includes('-')) {
-                const arrayAccessor = `['${name}']`;
-                const range = lsp.Range.create(
-                    lsp.Position.create(position.line, position.character - 1),
-                    position,
-                );
-
-                completionItem = CompletionItem.create(arrayAccessor);
-                completionItem.textEdit = lsp.InsertReplaceEdit.create(
-                    arrayAccessor,
-                    range,
-                    range,
-                );
-            } else {
-                completionItem = CompletionItem.create(name);
-            }
             return completionItem;
         });
 
