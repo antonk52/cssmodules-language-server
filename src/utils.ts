@@ -456,16 +456,17 @@ export function stringifyClassname(
 
 // https://github.com/wkillerud/some-sass/blob/main/vscode-extension/src/utils/string.ts
 export function getEOL(text: string): string {
-	for (let i = 0; i < text.length; i++) {
-		const ch = text.charAt(i);
-		if (ch === "\r") {
-			if (i + 1 < text.length && text.charAt(i + 1) === "\n") {
-				return "\r\n";
-			}
-			return "\r";
-		} else if (ch === "\n") {
-			return "\n";
-		}
-	}
-	return "\n";
+    for (let i = 0; i < text.length; i++) {
+        const ch = text.charAt(i);
+        if (ch === '\r') {
+            if (i + 1 < text.length && text.charAt(i + 1) === '\n') {
+                return '\r\n';
+            }
+            return '\r';
+        }
+        if (ch === '\n') {
+            return '\n';
+        }
+    }
+    return '\n';
 }

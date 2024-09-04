@@ -15,12 +15,12 @@ import {
     findImportPath,
     genImportRegExp,
     getCurrentDirFromUri,
+    getEOL,
     getPosition,
     getTransformer,
     getWords,
     isImportLineMatch,
     stringifyClassname,
-    getEOL,
 } from './utils';
 
 export class CSSModulesDefinitionProvider {
