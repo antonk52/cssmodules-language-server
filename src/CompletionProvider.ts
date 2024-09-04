@@ -1,4 +1,3 @@
-import {EOL} from 'os';
 import {CompletionItem, type Position} from 'vscode-languageserver-protocol';
 import type {TextDocument} from 'vscode-languageserver-textdocument';
 import * as lsp from 'vscode-languageserver/node';
@@ -7,6 +6,7 @@ import {
     findImportPath,
     getAllClassNames,
     getCurrentDirFromUri,
+    getEOL,
     getTransformer,
 } from './utils';
 import type {CamelCaseValues} from './utils';
@@ -170,7 +170,7 @@ export class CSSModulesCompletionProvider {
         position: Position,
     ): Promise<CompletionItem[] | null> {
         const fileContent = textdocument.getText();
-        const lines = fileContent.split(EOL);
+        const lines = fileContent.split(getEOL(fileContent));
         const currentLine = lines[position.line];
         if (typeof currentLine !== 'string') return null;
         const currentDir = getCurrentDirFromUri(textdocument.uri);

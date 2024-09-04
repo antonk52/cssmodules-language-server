@@ -1,4 +1,3 @@
-import {EOL} from 'os';
 import path from 'path';
 import {
     type Hover,
@@ -16,6 +15,7 @@ import {
     findImportPath,
     genImportRegExp,
     getCurrentDirFromUri,
+    getEOL,
     getPosition,
     getTransformer,
     getWords,
@@ -57,6 +57,7 @@ export class CSSModulesDefinitionProvider {
         position: Position,
     ): Promise<null | Hover> {
         const fileContent = textdocument.getText();
+        const EOL = getEOL(fileContent);
         const lines = fileContent.split(EOL);
         const currentLine = lines[position.line];
 
@@ -93,6 +94,7 @@ export class CSSModulesDefinitionProvider {
                     field,
                     node.declarations,
                     node.comments,
+                    EOL,
                 ),
             },
         };
@@ -103,7 +105,7 @@ export class CSSModulesDefinitionProvider {
         position: Position,
     ): Promise<Location | null> {
         const fileContent = textdocument.getText();
-        const lines = fileContent.split(EOL);
+        const lines = fileContent.split(getEOL(fileContent));
         const currentLine = lines[position.line];
 
         if (typeof currentLine !== 'string') {

@@ -1,5 +1,4 @@
 import fs from 'fs';
-import {EOL} from 'os';
 import path from 'path';
 import url from 'url';
 import _camelCase from 'lodash.camelcase';
@@ -266,6 +265,7 @@ export async function filePathToClassnameDict(
     classnameTransformer: StringTransformer,
 ): Promise<ClassnameDict> {
     const content = fs.readFileSync(filepath, {encoding: 'utf8'});
+    const EOL = getEOL(content);
     const {ext} = path.parse(filepath);
 
     /**
@@ -427,6 +427,7 @@ export function stringifyClassname(
     classname: string,
     declarations: string[],
     comments: string[],
+    EOL: string,
 ): string {
     const commentString = comments.length
         ? comments
@@ -451,4 +452,21 @@ export function stringifyClassname(
             ...(declarations.length ? ['}'] : []),
         ].join(EOL)
     );
+}
+
+// https://github.com/wkillerud/some-sass/blob/main/vscode-extension/src/utils/string.ts
+export function getEOL(text: string): string {
+    for (let i = 0; i < text.length; i++) {
+        const ch = text.charAt(i);
+        if (ch === '\r') {
+            if (i + 1 < text.length && text.charAt(i + 1) === '\n') {
+                return '\r\n';
+            }
+            return '\r';
+        }
+        if (ch === '\n') {
+            return '\n';
+        }
+    }
+    return '\n';
 }
