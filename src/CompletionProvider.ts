@@ -213,7 +213,7 @@ export class CSSModulesCompletionProvider {
 
         return res.map((x, i) => ({
             ...x,
-            kind: lsp.CompletionItemKind.Text,
+            kind: lsp.CompletionItemKind.Field,
             data: i + 1,
         }));
     }
