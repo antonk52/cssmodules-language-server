@@ -2,6 +2,7 @@ import {existsSync} from 'fs';
 import {lilconfigSync} from 'lilconfig';
 import {type Mock, describe, expect, it, vi} from 'vitest';
 import {resolveAliasedImport} from '../utils/resolveAliasedImport';
+import {resolveJson5File} from '../utils/resolveJson5File';
 
 vi.mock('lilconfig', async () => {
     const actual: typeof import('lilconfig') =
@@ -9,6 +10,12 @@ vi.mock('lilconfig', async () => {
     return {
         ...actual,
         lilconfigSync: vi.fn(),
+    };
+});
+
+vi.mock('../utils/resolveJson5File', async () => {
+    return {
+        resolveJson5File: vi.fn(),
     };
 });
 
@@ -172,6 +179,64 @@ describe('utils: resolveAliasedFilepath', () => {
             importFilepath: '@bar/file.css',
         });
         const expected = '/path/to/bar/file.css';
+
+        expect(result).toEqual(expected);
+    });
+
+    it('searches for paths in parent configs when extends is set', () => {
+        (lilconfigSync as Mock).mockReturnValueOnce({
+            search: () => ({
+                config: {
+                    compilerOptions: {},
+                    extends: '../tsconfig.base.json',
+                },
+                filepath: '/root/module/tsconfig.json',
+            }),
+        });
+        (existsSync as Mock).mockReturnValue(true);
+        (resolveJson5File as Mock).mockReturnValueOnce({
+            config: {
+                compilerOptions: {
+                    baseUrl: './',
+                    paths: {
+                        '@other/*': ['./other/*'],
+                    },
+                },
+            },
+            filepath: '/root/tsconfig.base.json',
+        });
+        const result = resolveAliasedImport({
+            location: '',
+            importFilepath: '@other/file.css',
+        });
+        const expected = '/root/other/file.css';
+
+        expect(result).toEqual(expected);
+    });
+
+    it('handles infinite extends loops', () => {
+        (lilconfigSync as Mock).mockReturnValueOnce({
+            search: () => ({
+                config: {
+                    compilerOptions: {},
+                    extends: '../tsconfig.base.json',
+                },
+                filepath: '/root/module/tsconfig.json',
+            }),
+        });
+        (existsSync as Mock).mockReturnValue(true);
+        (resolveJson5File as Mock).mockReturnValue({
+            config: {
+                compilerOptions: {},
+                extends: './tsconfig.base.json',
+            },
+            filepath: '/root/tsconfig.base.json',
+        });
+        const result = resolveAliasedImport({
+            location: '',
+            importFilepath: '@bar/file.css',
+        });
+        const expected = null;
 
         expect(result).toEqual(expected);
     });

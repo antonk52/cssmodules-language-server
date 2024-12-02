@@ -3,6 +3,7 @@ import path from 'path';
 import JSON5 from 'json5';
 
 import {lilconfigSync} from 'lilconfig';
+import {resolveJson5File} from './resolveJson5File';
 
 const validate = {
     string: (x: unknown): x is string => typeof x === 'string',
@@ -54,22 +55,46 @@ export const resolveAliasedImport = ({
             '.json': (_, content) => JSON5.parse(content),
         },
     });
-    const config = searcher.search(location);
+    let config = searcher.search(location);
 
     if (config == null) {
         return null;
     }
 
-    const paths: unknown = config.config?.compilerOptions?.paths;
+    let configLocation = path.dirname(config.filepath);
 
-    const potentialBaseUrl: unknown = config.config?.compilerOptions?.baseUrl;
+    let paths: unknown = config.config?.compilerOptions?.paths;
+    let pathsBase = configLocation;
 
-    const configLocation = path.dirname(config.filepath);
+    let potentialBaseUrl: unknown = config.config?.compilerOptions?.baseUrl;
+    let baseUrl = validate.string(potentialBaseUrl)
+        ? path.resolve(configLocation, potentialBaseUrl)
+        : null;
+
+    let depth = 0;
+    while ((!paths || !baseUrl) && config.config?.extends && depth++ < 10) {
+        config = resolveJson5File({
+            path: config.config.extends,
+            base: configLocation,
+        });
+        if (config == null) {
+            return null;
+        }
+        configLocation = path.dirname(config.filepath);
+        if (!paths && config.config?.compilerOptions?.paths) {
+            paths = config.config.compilerOptions.paths;
+            pathsBase = configLocation;
+        }
+        if (!baseUrl && config.config?.compilerOptions?.baseUrl) {
+            potentialBaseUrl = config.config.compilerOptions.baseUrl;
+            baseUrl = validate.string(potentialBaseUrl)
+                ? path.resolve(configLocation, potentialBaseUrl)
+                : null;
+        }
+    }
 
     if (validate.tsconfigPaths(paths)) {
-        const baseUrl = validate.string(potentialBaseUrl)
-            ? potentialBaseUrl
-            : '.';
+        baseUrl = baseUrl || pathsBase;
 
         for (const alias in paths) {
             const aliasRe = new RegExp(alias.replace('*', '(.+)'), '');
@@ -80,7 +105,6 @@ export const resolveAliasedImport = ({
 
             for (const potentialAliasLocation of paths[alias]) {
                 const resolvedFileLocation = path.resolve(
-                    configLocation,
                     baseUrl,
                     potentialAliasLocation
                         // "./utils/*" -> "./utils/style.module.css"
@@ -100,12 +124,8 @@ export const resolveAliasedImport = ({
     // so here we only try and resolve the file if baseUrl is explcitly set and valid
     // i.e. if no baseUrl is provided
     // then no imports relative to baseUrl on its own are allowed, only relative to paths
-    if (validate.string(potentialBaseUrl)) {
-        const resolvedFileLocation = path.resolve(
-            configLocation,
-            potentialBaseUrl,
-            importFilepath,
-        );
+    if (baseUrl) {
+        const resolvedFileLocation = path.resolve(baseUrl, importFilepath);
 
         if (fs.existsSync(resolvedFileLocation)) {
             return resolvedFileLocation;
