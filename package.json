@@ -28,16 +28,16 @@
     "lib/!(spec)/**/*.{js,d.ts}"
   ],
   "devDependencies": {
-    "@biomejs/biome": "1.6.2",
+    "@biomejs/biome": "^1.9.4",
     "@types/lodash.camelcase": "^4.3.9",
     "@types/node": "^18.19.26",
-    "rimraf": "^3.0.2",
-    "typescript": "^5.4.3",
-    "vitest": "^1.4.0"
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
   },
   "dependencies": {
     "json5": "^2.2.3",
-    "lilconfig": "^3.1.1",
+    "lilconfig": "^3.1.3",
     "lodash.camelcase": "^4.3.0",
     "postcss": "^8.1.10",
     "postcss-less": "^6.0.0",
@@ -45,7 +45,7 @@
     "postcss-scss": "^4.0.9",
     "vscode-languageserver": "^9.0.1",
     "vscode-languageserver-protocol": "^3.17.5",
-    "vscode-languageserver-textdocument": "^1.0.11",
+    "vscode-languageserver-textdocument": "^1.0.12",
     "vscode-uri": "^3.0.8"
   },
   "funding": "https://github.com/sponsors/antonk52",
