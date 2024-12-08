@@ -222,7 +222,7 @@ const concatSelectors = (
                  *      }
                  * }
                  */
-                s => (/&[a-z0-1-_]/i ? s.replace('&', ps) : s),
+                s => (/&[a-z0-1-_]/i.test(s) ? s.replace('&', ps) : s),
             ),
         ),
     );
