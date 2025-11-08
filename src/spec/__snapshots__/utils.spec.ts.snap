@@ -809,3 +809,75 @@ exports[`filePathToClassnameDict > SCSS > gets a dictionary of nested classnames
   },
 }
 `;
+
+exports[`filePathToClassnameDict > SCSS > infers class definitions inside layers 1`] = `
+{
+  ".container": {
+    "comments": [],
+    "declarations": [
+      "max-width: 1528px;",
+      "margin: 0 auto;",
+      "padding: 0 60px;",
+    ],
+    "position": {
+      "column": 3,
+      "line": 2,
+    },
+  },
+  ".in_container": {
+    "comments": [],
+    "declarations": [
+      "font-size: 1.2rem;",
+      "padding: 20px;",
+    ],
+    "position": {
+      "column": 3,
+      "line": 27,
+    },
+  },
+  ".in_document": {
+    "comments": [],
+    "declarations": [
+      "color: green;",
+    ],
+    "position": {
+      "column": 3,
+      "line": 14,
+    },
+  },
+  ".in_media": {
+    "comments": [],
+    "declarations": [
+      "background-color: #121212;",
+      "color: #e0e0e0;",
+    ],
+    "position": {
+      "column": 3,
+      "line": 20,
+    },
+  },
+  ".in_scope": {
+    "comments": [],
+    "declarations": [
+      "border: 2px solid blue;",
+      "padding: 10px;",
+    ],
+    "position": {
+      "column": 3,
+      "line": 34,
+    },
+  },
+  ".in_supports": {
+    "comments": [],
+    "declarations": [
+      "display: grid;",
+      "grid-template-columns: repeat(3, 1fr);",
+      "gap: 20px;",
+    ],
+    "position": {
+      "column": 3,
+      "line": 47,
+    },
+  },
+}
+`;

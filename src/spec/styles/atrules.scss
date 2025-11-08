@@ -1,0 +1,52 @@
+@layer base {
+  .container {
+    max-width: 1528px;
+    margin: 0 auto;
+    padding: 0 60px;
+
+    @media (max-width: 767px) {
+      padding: 0 20px;
+    }
+  }
+}
+
+@document url("https://www.example.com/") {
+  .in_document {
+    color: green;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .in_media {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+}
+
+@container (width >=600px) {
+  .in_container {
+    font-size: 1.2rem;
+    padding: 20px;
+  }
+}
+
+@scope (.scoped) {
+  .in_scope {
+    border: 2px solid blue;
+    padding: 10px;
+  }
+}
+
+@starting-state (hover) {
+  .in_starting_state:hover {
+    background-color: yellow;
+  }
+}
+
+@supports (display: grid) {
+  .in_supports {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}

@@ -236,6 +236,16 @@ function getParentRule(node: Node): undefined | Node {
     return getParentRule(parent);
 }
 
+const AT_RULES_WITH_SELECTORS = new Set([
+    'container',
+    'document',
+    'layer',
+    'media',
+    'scope',
+    'starting-style',
+    'supports',
+]);
+
 /**
  * input `'./path/to/styles.css'`
  *
@@ -307,7 +317,10 @@ export async function filePathToClassnameDict(
             continue;
         }
         if (node.type === 'atrule') {
-            if (node.name.toLowerCase() === 'media' && node.nodes) {
+            if (
+                AT_RULES_WITH_SELECTORS.has(node.name.toLowerCase()) &&
+                node.nodes
+            ) {
                 stack.unshift(...node.nodes);
             }
             commentStack = [];
