@@ -87,6 +87,16 @@ describe('filePathToClassnameDict', () => {
 
             expect(result).toMatchSnapshot();
         });
+
+        it('infers class definitions inside layers', async () => {
+            const filepath = path.join(__dirname, 'styles', 'atrules.scss');
+            const result = await filePathToClassnameDict(
+                filepath,
+                getTransformer(false),
+            );
+
+            expect(result).toMatchSnapshot();
+        });
     });
 
     describe('SASS', () => {
